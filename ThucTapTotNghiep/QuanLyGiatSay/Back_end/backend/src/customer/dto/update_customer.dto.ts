@@ -28,4 +28,8 @@ export class UpdateCustomerDto {
   @IsOptional()
   @IsString()
   readonly loai_khach?: string;
+
+  @IsOptional()
+  @IsString()
+  readonly vaitro?: string;
 }

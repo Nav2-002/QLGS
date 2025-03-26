@@ -3,11 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateStaffDto } from './dto/create_staff.dto';
 import { UpdateStaffDto } from './dto/update_staff.dto';
-import { Staff } from 'src/staff/model/staff.schema';
+import { Staff, StaffDocument } from 'src/staff/model/staff.schema';
 
 @Injectable()
 export class StaffRepository {
   constructor(@InjectModel(Staff.name) private readonly model: Model<Staff>) {}
+
+  async findByEmail(email: string): Promise<StaffDocument | null> {
+    return this.model.findOne({ email }).exec();
+}
 
   async create(staff: CreateStaffDto) {
     const newStaff = await new this.model({

@@ -3,13 +3,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateCustomerDto } from './dto/create_customer.dto';
 import { UpdateCustomerDto } from './dto/update_customer.dto';
-import { Customer } from 'src/customer/model/customer.schema';
+import { Customer, CustomerDocument } from 'src/customer/model/customer.schema';
 import { CreateStoreDto } from 'src/store/dto/create_store.dto';
 import { UpdateStoreDto } from 'src/store/dto/update_store.dto';
 
 @Injectable()
 export class CustomerRepository {
   constructor(@InjectModel(Customer.name) private readonly model: Model<Customer>) {}
+
+  async findByEmail(email: string): Promise<CustomerDocument | null> {
+    return this.model.findOne({ email }).exec();
+}
 
   async create(customer: CreateCustomerDto) {
     const newCustomer = await new this.model({

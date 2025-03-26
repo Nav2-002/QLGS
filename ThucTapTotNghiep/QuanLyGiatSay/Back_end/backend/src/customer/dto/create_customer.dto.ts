@@ -23,4 +23,7 @@ export class CreateCustomerDto {
 
   @IsString()
   readonly loai_khach: string;
+
+  @IsString()
+  readonly vaitro: string;
 }

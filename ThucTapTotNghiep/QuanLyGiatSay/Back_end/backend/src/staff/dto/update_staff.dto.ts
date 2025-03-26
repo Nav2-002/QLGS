@@ -23,4 +23,8 @@ export class UpdateStaffDto {
   @IsOptional()
   @IsString()
   matkhau?: string;
-}
+
+  @IsOptional()
+  @IsString()
+  role?: string;
+} 

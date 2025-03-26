@@ -23,4 +23,8 @@ export class CreateStaffDto {
   @IsNotEmpty()
   @IsString()
   matkhau: string;
+
+  @IsOptional()
+  @IsString()
+  role?: string;
 }

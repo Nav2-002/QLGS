@@ -5,15 +5,18 @@ export class CreateAdminDto {
   id?: string;
 
   @IsNotEmpty({ message: 'Tên không được để trống' })
-  name: string;
+  ten: string;
 
   @IsEmail({}, { message: 'Email không hợp lệ' })
   email: string;
 
   @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  password: string;
+  mat_khau: string;
 
   @IsOptional()
-  role?: string = 'admin';
+  vaitro?: string = 'admin';
+
+  @IsOptional()
+  id_cuahang?: string;
 }

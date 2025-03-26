@@ -14,7 +14,7 @@ export class CustomerService {
   constructor(private readonly repository: CustomerRepository) {}
 
   async createCustomer(createCustomerDto: CreateCustomerDto) {
-    const { ten, sodienthoai, email, diachi, ngay_sinh, loai_khach, mat_khau } =
+    const { ten, sodienthoai, email, diachi, ngay_sinh, loai_khach, mat_khau, vaitro } =
       createCustomerDto;
 
     try {
@@ -27,6 +27,7 @@ export class CustomerService {
         ngay_sinh,
         mat_khau,
         loai_khach,
+        vaitro,
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);
@@ -44,7 +45,7 @@ export class CustomerService {
   }
 
   async updateById(id: string, customerUpdate: UpdateCustomerDto) {
-    const { ten, sodienthoai, email, diachi, ngay_sinh, loai_khach } =
+    const { ten, sodienthoai, email, diachi, ngay_sinh, loai_khach, vaitro } =
       customerUpdate;
 
     const customer = await this.findById(id);
@@ -58,6 +59,7 @@ export class CustomerService {
         diachi,
         ngay_sinh,
         loai_khach,
+        vaitro,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');

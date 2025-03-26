@@ -3,13 +3,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { UpdateAdminDto } from './dto/update_admin.dto';
-import { Admin } from 'src/admin/model/admin.schema';
+import { Admin, AdminDocument } from 'src/admin/model/admin.schema';
+import { CreateStoreDto } from 'src/store/dto/create_store.dto';
+import { UpdateStoreDto } from 'src/store/dto/update_store.dto';
+import { CreateCustomerDto } from 'src/customer/dto/create_customer.dto';
+import { CustomerDocument } from 'src/customer/model/customer.schema';
 
 @Injectable()
 export class AdminRepository {
-  constructor(
-    @InjectModel(Admin.name) private readonly model: Model<Admin>,
-  ) {}
+  constructor(@InjectModel(Admin.name) private readonly model: Model<Admin>) {}
+
+  async findByEmail(email: string): Promise<AdminDocument | null> {
+    return this.model.findOne({ email }).exec();
+}
 
   async create(admin: CreateAdminDto) {
     const newAdmin = await new this.model({
@@ -24,11 +30,7 @@ export class AdminRepository {
     return await this.model.findOne({ _id: id }).lean<Admin>(true);
   }
 
-  async updateOne(
-    id: string,
-    adminOld: Admin,
-    adminNew: UpdateAdminDto,
-  ) {
+  async updateOne(id: string, adminOld: Admin, adminNew: UpdateAdminDto) {
     const updateAdmin = await this.model.findOneAndUpdate(
       { _id: id },
       adminNew,
@@ -53,7 +55,7 @@ export class AdminRepository {
     return await this.model
       .find(keyword ? { $or: [{ ten: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ name: sort })
+      .sort({ ten: sort })
       .limit(limit)
       .lean<Admin[]>(true);
   }

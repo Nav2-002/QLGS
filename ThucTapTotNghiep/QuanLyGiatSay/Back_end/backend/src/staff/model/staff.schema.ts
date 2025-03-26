@@ -26,5 +26,7 @@ export class Staff {
 
   @Prop({ required: true })
   matkhau: string;
+
+
 }
   export const StaffSchema = SchemaFactory.createForClass(Staff);

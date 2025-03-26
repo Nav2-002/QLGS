@@ -28,6 +28,9 @@ export class Customer {
   
   @Prop()
   loai_khach?: string;
+
+  @Prop({ default: 'customer' })
+  vaitro: string;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);

@@ -2,7 +2,7 @@ import { IsEmail, IsOptional, MinLength } from 'class-validator';
 
 export class UpdateAdminDto {
   @IsOptional()
-  name?: string;
+  ten?: string;
 
   @IsOptional()
   @IsEmail({}, { message: 'Email không hợp lệ' })
@@ -10,8 +10,11 @@ export class UpdateAdminDto {
 
   @IsOptional()
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  password?: string;
+  mat_khau?: string;
 
   @IsOptional()
-  role?: string;
+  vaitro?: string;
+
+  @IsOptional()
+  id_cuahang?: string;
 }
