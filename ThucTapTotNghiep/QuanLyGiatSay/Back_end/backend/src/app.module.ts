@@ -9,6 +9,13 @@ import { StoreModule } from './store/store.module';
 import { GoodsModule } from './goods/goods.module';
 import { LaundryOrderModule } from './laundry_order/laundry_order.module';
 import { AdminModule } from './admin/admin.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { InvoiceDetailModule } from './invoice_details/invoice_details.module';
+import { WarehouseModule } from './warehouse/warehouse.module';
+import { DeliveryModule } from './delivery/delivery.module';
+import { SupplierModule } from './supplier/supplier.module';
+import { ShelfModule } from './shelf/shelf.module';
+import { StockTransactionModule } from './stock_transaction/stock_transaction.module';
 @Module({
   imports: [
     DatabaseModule,
@@ -21,6 +28,13 @@ import { AdminModule } from './admin/admin.module';
     GoodsModule,
     LaundryOrderModule,
     AdminModule,
+    InvoiceModule,
+    InvoiceDetailModule,
+    WarehouseModule,
+    DeliveryModule,
+    SupplierModule,
+    ShelfModule,
+    StockTransactionModule,
   ],
 })
 export class AppModule {}

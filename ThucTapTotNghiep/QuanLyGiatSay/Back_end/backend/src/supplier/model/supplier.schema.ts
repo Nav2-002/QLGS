@@ -1,14 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Types } from 'mongoose';
 
-export type StaffDocument = Staff & Document;
+export type SupplierDocument = Supplier & Document;
 
 @Schema({ timestamps: true })
-export class Staff {
-
+export class Supplier {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
-  
+
   @Prop({ type: Types.ObjectId, ref: 'Store', required: true })
   id_store: Types.ObjectId;
 
@@ -16,17 +15,10 @@ export class Staff {
   ten: string;
 
   @Prop()
-  sodienthoai: string;
+  phone?: string;
 
   @Prop()
-  email: string;
-
-  @Prop({ required: true })
-  vaitro: string; // 'Nhân viên', 'Quản lý', 'Giao hàng'
-
-  @Prop({ required: true })
-  matkhau: string;
-
-
+  address?: string;
 }
-  export const StaffSchema = SchemaFactory.createForClass(Staff);
+
+export const SupplierSchema = SchemaFactory.createForClass(Supplier);

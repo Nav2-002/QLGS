@@ -10,22 +10,22 @@ export class MembershipCard {
   _id: Types.ObjectId;
   
   @Prop({ type: Types.ObjectId, ref: 'Customer', required: true })
-  id_khachhang: Types.ObjectId;
+  id_customer: Types.ObjectId;
 
   @Prop({ required: true })
-  so_the: string;
+  card_number: string;
 
   @Prop({ required: true })
-  ngay_cap: Date;
+  issue_date: Date;
 
   @Prop({ required: true })
-  ngay_het_han: Date;
+  expiry_date: Date;
 
   @Prop({ default: 0 })
-  diem_tich_luy: number;
+  points: number;
 
   @Prop({ required: true })
-  trangthai: boolean;
+  status: boolean;
 }
 
 export const MembershipCardSchema = SchemaFactory.createForClass(MembershipCard);

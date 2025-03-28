@@ -41,7 +41,7 @@ export class MembershipCardController {
     const membershipCards = await this.membershipCardService.findAll(params);
 
       const rootMembershipCards = membershipCards.filter((membershipCard) => {
-      return membershipCard.id_khachhang === null;
+      return membershipCard.id_customer === null;
     });
 
     return buildPagination<MembershipCard>(membershipCards, params, rootMembershipCards);

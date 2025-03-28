@@ -41,7 +41,7 @@ export class StaffController {
     const staffs = await this.staffService.findAll(params);
 
     const rootStaffs = staffs.filter((staff) => {
-      return staff.id_cuahang === null;
+      return staff.id_store === null;
     });
 
     return buildPagination<Staff>(staffs, params, rootStaffs);
