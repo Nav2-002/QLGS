@@ -11,7 +11,7 @@ export class Promotion {
   @Prop({ required: true })
   ten_khuyenmai: string;
 
-  @Prop()
+  @Prop({ required: true })
   mo_ta: string;
 
   @Prop({ required: true })

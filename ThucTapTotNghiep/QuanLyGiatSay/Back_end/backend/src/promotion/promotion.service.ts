@@ -2,34 +2,31 @@ import {
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
+  BadRequestException,
 } from '@nestjs/common';
 import { CreatePromotionDto } from './dto/create_promotion.dto';
 import { UpdatePromotionDto } from './dto/update_promotion.dto';
 import { PromotionRepository } from './promotion.repository';
 import { checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class PromotionService {
   constructor(private readonly repository: PromotionRepository) {}
 
   async createPromotion(createPromotionDto: CreatePromotionDto) {
-    const { ten_khuyenmai, mo_ta, loai_khuyenmai, gia_tri, ngay_bat_dau, ngay_ket_thuc, trangthai } =
-      createPromotionDto;
-
+    const errors = await validate(createPromotionDto);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+  
+    // Chỉ lưu dữ liệu nếu không có lỗi validation
     try {
-
-      return await this.repository.create({
-        ten_khuyenmai,
-        mo_ta,
-        loai_khuyenmai,
-        gia_tri,
-        ngay_bat_dau,
-        ngay_ket_thuc,
-        trangthai,
-      });
+      return await this.repository.create(createPromotionDto);
     } catch (error) {
-      throw new UnprocessableEntityException(error.message);
+      // Xử lý lỗi lưu dữ liệu
+      throw error;
     }
   }
 
@@ -44,14 +41,17 @@ export class PromotionService {
   }
 
   async updateById(id: string, promotionUpdate: UpdatePromotionDto) {
+    const errors = await validate(promotionUpdate);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
     const { ten_khuyenmai, mo_ta, loai_khuyenmai, gia_tri, ngay_bat_dau, ngay_ket_thuc, trangthai } =
       promotionUpdate;
 
     const promotion = await this.findById(id);
 
     try {
-      
-
       return await this.repository.updateOne(id, promotion, {
         ten_khuyenmai,
         mo_ta,
@@ -65,6 +65,7 @@ export class PromotionService {
       throw new UnprocessableEntityException('Tên đã tồn tại');
     }
   }
+
 
   async deleteById(id: string) {
     const promotion = await this.findById(id);

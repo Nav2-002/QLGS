@@ -1,13 +1,14 @@
-import { IsNotEmpty, IsEnum, IsNumber, IsDateString, IsBoolean, IsOptional } from 'class-validator';
+// src/promotion/dto/create_promotion.dto.ts
+import { IsNotEmpty, IsNumber, IsDateString, IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 
 export class CreatePromotionDto {
   @IsNotEmpty()
   ten_khuyenmai: string;
 
+  @IsString()
   @IsOptional()
-  mo_ta?: string;
+  mo_ta: string;
 
-  @IsNotEmpty()
   @IsEnum(['Phần trăm', 'Tiền mặt'])
   loai_khuyenmai: string;
 
@@ -15,10 +16,10 @@ export class CreatePromotionDto {
   gia_tri: number;
 
   @IsDateString()
-  ngay_bat_dau: Date;
+  ngay_bat_dau: string;
 
   @IsDateString()
-  ngay_ket_thuc: Date;
+  ngay_ket_thuc: string;
 
   @IsBoolean()
   trangthai: boolean;
