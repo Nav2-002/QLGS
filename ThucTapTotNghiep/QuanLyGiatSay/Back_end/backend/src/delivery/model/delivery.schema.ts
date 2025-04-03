@@ -5,9 +5,6 @@ export type DeliveryDocument = Delivery & Document;
 
 @Schema({ timestamps: true })
 export class Delivery {
-  @Prop({ type: SchemaTypes.ObjectId })
-  _id: Types.ObjectId;
-  
   @Prop({ type: Types.ObjectId, ref: 'LaundryOrder', required: true })
   id_laundry_order: Types.ObjectId;
 
@@ -20,17 +17,15 @@ export class Delivery {
   @Prop({ required: true })
   delivery_address: string;
 
-  @Prop()
-  phone_number: string;
-
-  @Prop()
-  email: string;
+  @Prop({ type: Date, default: null })
+  delivery_date?: Date;
 
   @Prop({ required: true, enum: ['Pending', 'In Delivery', 'Delivered'] })
   status: string;
 
-  @Prop({ required: true })
-  password: string;
+  @Prop()
+  note?: string;
 }
 
 export const DeliverySchema = SchemaFactory.createForClass(Delivery);
+export default DeliverySchema;

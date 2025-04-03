@@ -17,16 +17,16 @@ export class StaffService {
   constructor(private readonly repository: StaffRepository) {}
 
   async createStaff(createStaffDto: CreateStaffDto) {
-    const { id_cuahang, ten, sodienthoai, email, vaitro, matkhau } =
+    const { id_store, ten, sodienthoai, email, vaitro, matkhau } =
       createStaffDto;
 
     try {
-      if (id_cuahang) {
-        checkValisIsObject(id_cuahang, 'id_cuahang');
+      if (id_store) {
+        checkValisIsObject(id_store, 'id_store');
         // You might want to validate if the staff exists here, similar to the previous example.
       }
       return await this.repository.create({
-        id_cuahang,
+        id_store,
         ten,
         sodienthoai,
         email,
@@ -49,19 +49,19 @@ export class StaffService {
   }
 
   async updateById(id: string, staffUpdate: UpdateStaffDto) {
-    const { id_cuahang, ten, sodienthoai, email, vaitro, matkhau } =
+    const { id_store, ten, sodienthoai, email, vaitro, matkhau } =
       staffUpdate;
 
     const store = await this.findById(id);
 
     try {
-      if (id_cuahang) {
-        checkValisIsObject(id_cuahang, 'id_cuahang');
+      if (id_store) {
+        checkValisIsObject(id_store, 'id_store');
         // You might want to validate if the staff exists here, similar to the previous example.
       }
 
       return await this.repository.updateOne(id, store, {
-        id_cuahang,
+        id_store,
         ten,
         sodienthoai,
         email,

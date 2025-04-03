@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsMongoId } from 'class-validator';
 
 export class CreateStaffDto {
+  @IsMongoId()
   @IsNotEmpty()
-  id_cuahang: string;
+  id_store: string;
 
   @IsNotEmpty()
   @IsString()

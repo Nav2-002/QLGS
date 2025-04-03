@@ -1,8 +1,9 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsMongoId } from 'class-validator';
 
 export class UpdateStaffDto {
-  @IsOptional()
-  id_cuahang?: string;
+  @IsMongoId()
+  @IsNotEmpty()
+  id_store: string;
 
   @IsOptional()
   @IsString()

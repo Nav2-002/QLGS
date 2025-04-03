@@ -30,7 +30,5 @@ export class UpdateDeliveryDto {
   @IsString()
   status?: string;
 
-  @IsOptional()
-  @IsString()
-  password?: string;
+
 }
