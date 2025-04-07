@@ -4,19 +4,19 @@ export class CreateAdminDto {
   @IsOptional()
   id?: string;
 
-  @IsNotEmpty({ message: 'Tên không được để trống' })
-  ten: string;
+  @IsNotEmpty({ message: 'Name is required' })
+  name: string;
 
-  @IsEmail({}, { message: 'Email không hợp lệ' })
+  @IsEmail({}, { message: 'Invalid email' })
   email: string;
 
-  @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
-  @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  mat_khau: string;
+  @IsNotEmpty({ message: 'Password is required' })
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
+  password: string;
 
   @IsOptional()
-  vaitro?: string = 'admin';
+  role?: string = 'admin';
 
   @IsOptional()
-  id_cuahang?: string;
+  id_store?: string;
 }

@@ -11,14 +11,14 @@ import { CustomerDocument } from 'src/customer/model/customer.schema';
 
 @Injectable()
 export class AdminRepository {
-  constructor(@InjectModel(Admin.name) private readonly model: Model<Admin>) {}
+  constructor(@InjectModel(Admin.name) private readonly adminModel: Model<AdminDocument>) {}
 
   async findByEmail(email: string): Promise<AdminDocument | null> {
-    return this.model.findOne({ email }).exec();
-}
+    return this.adminModel.findOne({ email }).exec();
+  }
 
   async create(admin: CreateAdminDto) {
-    const newAdmin = await new this.model({
+    const newAdmin = await new this.adminModel({
       _id: new Types.ObjectId(),
       ...admin,
     }).save();
@@ -27,11 +27,11 @@ export class AdminRepository {
   }
 
   async findOne(id: string) {
-    return await this.model.findOne({ _id: id }).lean<Admin>(true);
+    return await this.adminModel.findOne({ _id: id }).lean<Admin>(true);
   }
 
   async updateOne(id: string, adminOld: Admin, adminNew: UpdateAdminDto) {
-    const updateAdmin = await this.model.findOneAndUpdate(
+    const updateAdmin = await this.adminModel.findOneAndUpdate(
       { _id: id },
       adminNew,
       {
@@ -43,7 +43,7 @@ export class AdminRepository {
   }
 
   async deleteOne(id: string) {
-    return await this.model.findOneAndDelete({ _id: id });
+    return await this.adminModel.findOneAndDelete({ _id: id });
   }
 
   async findAll(
@@ -52,7 +52,7 @@ export class AdminRepository {
     sort: 'asc' | 'desc',
     keyword: any,
   ) {
-    return await this.model
+    return await this.adminModel
       .find(keyword ? { $or: [{ ten: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
       .sort({ ten: sort })
@@ -61,6 +61,6 @@ export class AdminRepository {
   }
 
   async findAllGetName() {
-    return await this.model.find().lean<Admin[]>(true);
+    return await this.adminModel.find().lean<Admin[]>(true);
   }
 }

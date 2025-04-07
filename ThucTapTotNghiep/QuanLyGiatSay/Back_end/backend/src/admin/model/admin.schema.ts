@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Types } from 'mongoose';
+import { Role } from '../../auth/decorator/role.enum';
 
 export type AdminDocument = Admin & Document;
 
@@ -7,22 +8,25 @@ export type AdminDocument = Admin & Document;
 export class Admin {
   
   @Prop({ type: SchemaTypes.ObjectId })
-  _id: Types .ObjectId;
+  _id: Types.ObjectId;
 
   @Prop({ required: true })
-  ten: string;
+  name: string;
 
   @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })
-  mat_khau: string;
+  password: string;
 
-  @Prop({ default: 'admin' })
-  vaitro: string;
+  @Prop({ type: String, enum: Role, default: Role.ADMIN })
+  role: Role;
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'Cuahang' })
-  id_cuahang: Types.ObjectId;
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Store' })
+  id_store: Types.ObjectId;
+
+  @Prop({ default: true })
+  status: boolean;
 }
 
 export const AdminSchema = SchemaFactory.createForClass(Admin);

@@ -44,7 +44,7 @@ export class AdminController {
     const admins = await this.adminService.findAll(params);
 
     const rootAdmins = admins.filter((admin) => {
-      return admin.vaitro === null;
+      return admin.role === null;
     });
 
     return buildPagination<Admin>(admins, params, rootAdmins);

@@ -9,28 +9,31 @@ export class Customer {
   _id: Types.ObjectId;
 
   @Prop({ required: true })
-  ten: string;
+  name: string;
 
   @Prop({ required: true })
-  sodienthoai: string;
+  phone: string;
 
   @Prop({ unique: true })
   email?: string;
 
   @Prop()
-  diachi?: string;
+  address?: string;
 
   @Prop()
-  ngay_sinh?: Date;
+  birth_date?: Date;
 
   @Prop({ required: true })
-  mat_khau: string;
+  password: string;
   
   @Prop()
-  loai_khach?: string;
+  customer_type?: string;
 
   @Prop({ default: 'customer' })
-  vaitro: string;
+  role: string;
+
+  @Prop({ default: true })
+  status: boolean;
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer);

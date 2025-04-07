@@ -15,14 +15,14 @@ export class AdminService {
   constructor(private readonly repository: AdminRepository) {}
 
   async createAdmin(createAdminDto: CreateAdminDto) {
-    const { ten, email, mat_khau, vaitro } = createAdminDto;
+    const { name, email, password, role } = createAdminDto;
 
     try {
       return await this.repository.create({
-        ten,
+        name,
         email,
-        mat_khau,
-        vaitro,
+        password,
+        role,
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);

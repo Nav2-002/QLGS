@@ -41,7 +41,7 @@ export class CustomerController {
     const customers = await this.customerService.findAll(params);
 
     const rootCustomers = customers.filter((customer) => {
-      return customer.loai_khach === null;
+      return customer.customer_type === null;
     });
 
     return buildPagination<Customer>(customers, params, rootCustomers);

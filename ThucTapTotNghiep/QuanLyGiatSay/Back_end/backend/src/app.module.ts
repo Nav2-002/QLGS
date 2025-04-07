@@ -17,8 +17,10 @@ import { SupplierModule } from './supplier/supplier.module';
 import { ShelfModule } from './shelf/shelf.module';
 import { StockTransactionModule } from './stock_transaction/stock_transaction.module';
 import { ReportModule } from './report/report.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
+    AuthModule,
     DatabaseModule,
     CustomerModule,
     MembershipCardModule,
