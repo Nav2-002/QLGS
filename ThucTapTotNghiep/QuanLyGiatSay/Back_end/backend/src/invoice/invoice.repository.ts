@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreateInvoiceDto } from './dto/create_invoice.dto';
 import { UpdateInvoiceDto } from './dto/update_invoice.dto';
 import { Invoice, InvoiceDocument } from './model/invoice.schema';
@@ -61,6 +61,16 @@ export class InvoiceRepository {
       .skip((page - 1) * limit)
       .limit(limit)
       .sort({ date: sort === 'asc' ? 1 : -1 })
+      .lean<Invoice[]>(true);
+  }
+  // ✅ Lấy danh sách hóa đơn trong một khoảng thời gian và theo cửa hàng
+  async findAllByStoreAndDateRange(storeId: Types.ObjectId, startDate: Date, endDate: Date) {
+    return await this.model
+      .find({
+        store_id: storeId, // Lọc theo store_id
+        date: { $gte: startDate, $lt: endDate }, // Lọc theo khoảng thời gian
+        status: 'paid', // Lọc chỉ những hóa đơn đã thanh toán
+      })
       .lean<Invoice[]>(true);
   }
 }
