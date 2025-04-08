@@ -42,7 +42,7 @@ export class GoodsController {
     const goods = await this.goodsService.findAll(params.page, params.limit, params.sort as 'asc' | 'desc', params.keyword);
 
     const rootGoods = goods.filter((goods) => {
-      return goods.id_cuahang === null;
+      return goods.id_store === null;
     });
 
     return buildPagination<Goods>(goods, params, rootGoods);

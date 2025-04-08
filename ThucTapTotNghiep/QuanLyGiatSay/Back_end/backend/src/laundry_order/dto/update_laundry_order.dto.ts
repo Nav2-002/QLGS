@@ -3,49 +3,49 @@ import { IsNotEmpty, IsOptional, IsMongoId, IsDateString, IsNumber, IsString } f
 export class UpdateLaundryOrderDto {
   @IsMongoId()
   @IsOptional()
-  id_cuahang?: string;
+  id_store?: string; // Đổi 'id_cuahang' thành 'id_store'
 
   @IsMongoId()
   @IsOptional()
-  id_khachhang?: string;
+  id_customer?: string; // Đổi 'id_khachhang' thành 'id_customer'
 
   @IsMongoId()
   @IsOptional()
-  id_nhanvien?: string;
+  id_staff?: string; // Đổi 'id_nhanvien' thành 'id_staff'
 
   @IsDateString()
   @IsOptional()
-  ngay_nhan?: string;
+  receivedDate?: string; // Đổi 'ngay_nhan' thành 'receivedDate'
 
   @IsOptional()
   @IsDateString()
-  ngay_tra?: string;
+  returnedDate?: string; // Đổi 'ngay_tra' thành 'returnedDate'
 
   @IsOptional()
   @IsString()
-  diachi_nhan?: string;
+  pickupAddress?: string; // Đổi 'diachi_nhan' thành 'pickupAddress'
 
   @IsOptional()
   @IsString()
-  diachi_giao?: string;
+  deliveryAddress?: string; // Đổi 'diachi_giao' thành 'deliveryAddress'
 
   @IsNumber()
   @IsOptional()
-  tong_tien?: number;
+  totalAmount?: number; // Đổi 'tong_tien' thành 'totalAmount'
 
   @IsOptional()
   @IsNumber()
-  tien_khuyenmai?: number;
+  discountAmount?: number; // Đổi 'tien_khuyenmai' thành 'discountAmount'
 
   @IsNumber()
   @IsOptional()
-  tien_thu?: number;
+  amountPaid?: number; // Đổi 'tien_thu' thành 'amountPaid'
 
   @IsOptional()
   @IsString()
-  trangthai?: string;
+  status?: string; // Giữ nguyên 'trangthai'
 
   @IsOptional()
   @IsMongoId()
-  id_khuyenmai?: string;
+  promotionId?: string; // Đổi 'id_khuyenmai' thành 'promotionId'
 }

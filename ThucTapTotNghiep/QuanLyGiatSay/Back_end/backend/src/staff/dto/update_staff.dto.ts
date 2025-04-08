@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsMongoId, IsEmail } from 'class-validator';
 
 export class UpdateStaffDto {
   @IsMongoId()
@@ -7,25 +7,22 @@ export class UpdateStaffDto {
 
   @IsOptional()
   @IsString()
-  ten?: string;
+  name?: string; 
 
   @IsOptional()
   @IsString()
-  sodienthoai?: string;
+  phoneNumber?: string; 
 
   @IsOptional()
-  @IsString()
+  @IsEmail({}, { message: 'Email không hợp lệ' })
   email?: string;
 
-  @IsOptional()
-  @IsString()
-  vaitro?: string;
 
   @IsOptional()
   @IsString()
-  matkhau?: string;
+  password?: string; 
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  role?: string;
-} 
+  status?: boolean;
+}

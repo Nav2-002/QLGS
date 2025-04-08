@@ -5,18 +5,18 @@ export type ServiceDocument = Service & Document;
 
 @Schema({ timestamps: true })
 export class Service {
-    
+
   @Prop({ type: SchemaTypes.ObjectId })
-  _id: Types .ObjectId;
+  _id: Types.ObjectId;
 
   @Prop({ required: true })
-  ten_dichvu: string;
+  name: string; // Đổi 'ten_dichvu' thành 'name'
 
   @Prop({ required: true, type: Number })
-  gia: number;
+  price: number; // Đổi 'gia' thành 'price'
 
   @Prop()
-  mo_ta: string;
+  description: string; // Đổi 'mo_ta' thành 'description'
 }
 
 export const ServiceSchema = SchemaFactory.createForClass(Service);

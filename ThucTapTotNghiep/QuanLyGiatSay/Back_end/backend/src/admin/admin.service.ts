@@ -9,6 +9,7 @@ import { AdminRepository } from './admin.repository';
 import { checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 import { UpdateServiceDto } from 'src/service/dto/update_service.dto';
+import * as bcrypt from 'bcrypt'; 
 
 @Injectable()
 export class AdminService {
@@ -16,12 +17,14 @@ export class AdminService {
 
   async createAdmin(createAdminDto: CreateAdminDto) {
     const { name, email, password, role } = createAdminDto;
+    const saltRounds = 10; // Số lượng salt rounds (nên đặt là 10 trở lên)
+    const hashedPassword = await bcrypt.hash(password, saltRounds); // Băm mật khẩu
 
     try {
       return await this.repository.create({
         name,
         email,
-        password,
+        password: hashedPassword, // Lưu mật khẩu đã băm
         role,
       });
     } catch (error) {
@@ -40,7 +43,13 @@ export class AdminService {
   }
 
   async updateById(id: string, adminUpdate: UpdateAdminDto) {
-    const { ten, email, mat_khau, vaitro } = adminUpdate;
+    const { ten, email, password, vaitro } = adminUpdate;
+    let hashedPassword: string | undefined = undefined; // Khai báo rõ ràng kiểu
+
+    if (password) {
+      const saltRounds = 10;
+      hashedPassword = await bcrypt.hash(password, saltRounds);
+    }
 
     const service = await this.findById(id);
 
@@ -48,14 +57,14 @@ export class AdminService {
       return await this.repository.updateOne(id, service, {
         ten,
         email,
-        mat_khau,
+        password: hashedPassword !== undefined ? hashedPassword : service.password,
         vaitro,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');
     }
   }
-
+  
   async deleteById(id: string) {
     const service = await this.findById(id);
 

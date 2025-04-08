@@ -53,7 +53,7 @@ export class CustomerRepository {
     return await this.model
       .find(keyword ? { $or: [{ ten: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ ten: sort })
+      .sort({ name: sort })
       .limit(limit)
       .lean<Customer[]>(true);
   }

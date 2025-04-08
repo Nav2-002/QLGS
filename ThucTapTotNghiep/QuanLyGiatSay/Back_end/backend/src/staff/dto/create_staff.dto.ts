@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, IsOptional, IsMongoId } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsOptional,
+  IsMongoId,
+  MinLength,
+  IsEmail,
+} from 'class-validator';
 
 export class CreateStaffDto {
   @IsMongoId()
@@ -7,25 +14,25 @@ export class CreateStaffDto {
 
   @IsNotEmpty()
   @IsString()
-  ten: string;
+  name: string;
 
   @IsOptional()
   @IsString()
-  sodienthoai?: string;
+  phoneNumber?: string;
 
-  @IsOptional()
-  @IsString()
+
+  @IsEmail({}, { message: 'Invalid email' })
   email?: string;
 
   @IsNotEmpty()
   @IsString()
-  vaitro: string;
+  role?: string = 'staff';
+
+  @IsNotEmpty({ message: 'Password is required' })
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
+  password: string;
 
   @IsNotEmpty()
   @IsString()
-  matkhau: string;
-
-  @IsOptional()
-  @IsString()
-  role?: string;
+  status: boolean;
 }

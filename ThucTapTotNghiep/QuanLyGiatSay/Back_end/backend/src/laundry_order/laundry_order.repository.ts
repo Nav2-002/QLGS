@@ -61,21 +61,21 @@ export class LaundryOrderRepository {
     keyword?: string,
   ) {
     const filter = keyword
-      ? { 'details.ghichu': { $regex: keyword, $options: 'i' } } // ví dụ tìm theo ghi chú
+      ? { 'details.description': { $regex: keyword, $options: 'i' } } // ví dụ tìm theo ghi chú
       : {};
 
     return await this.model
       .find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-      .sort({ ngay_nhan: sort === 'asc' ? 1 : -1 }) // đổi trường sort cho hợp lý
+      .sort({ receivedDate: sort === 'asc' ? 1 : -1 }) // đổi trường sort cho hợp lý
       .lean<LaundryOrder[]>(true);
   }
 
   async findAllGetName() {
     return await this.model
       .find()
-      .select('trangthai ngay_nhan')
+      .select('status receivedDate')
       .lean<LaundryOrder[]>(true);
   }
 }

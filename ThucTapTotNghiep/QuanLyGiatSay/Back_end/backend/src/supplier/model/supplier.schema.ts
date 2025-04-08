@@ -12,7 +12,7 @@ export class Supplier {
   id_store: Types.ObjectId;
 
   @Prop({ required: true })
-  ten: string;
+  name: string;
 
   @Prop()
   phone?: string;

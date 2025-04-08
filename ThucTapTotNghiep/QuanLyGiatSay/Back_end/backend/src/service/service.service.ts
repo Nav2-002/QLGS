@@ -14,13 +14,13 @@ export class ServiceService {
   constructor(private readonly repository: ServiceRepository) {}
 
   async createService(createServiceDto: CreateServiceDto) {
-    const { ten_dichvu, gia, mo_ta } = createServiceDto;
+    const { name, price, description } = createServiceDto;
 
     try {
       return await this.repository.create({
-        ten_dichvu,
-        gia,
-        mo_ta,
+        name,
+        price,
+        description,
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);
@@ -38,15 +38,15 @@ export class ServiceService {
   }
 
   async updateById(id: string, serviceUpdate: UpdateServiceDto) {
-    const { ten_dichvu, gia, mo_ta } = serviceUpdate;
+    const { name, price, description } = serviceUpdate;
 
     const service = await this.findById(id);
 
     try {
       return await this.repository.updateOne(id, service, {
-        ten_dichvu,
-        gia,
-        mo_ta,
+        name,
+        price,
+        description,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');

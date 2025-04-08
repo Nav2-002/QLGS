@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Types } from 'mongoose';
+import { Role } from 'src/auth/decorator/role.enum';
 
 export type StaffDocument = Staff & Document;
 
@@ -13,20 +14,22 @@ export class Staff {
   id_store: Types.ObjectId;
 
   @Prop({ required: true })
-  ten: string;
+  name: string;
 
   @Prop()
-  sodienthoai: string;
+  phoneNumber: string;
 
   @Prop()
   email: string;
 
-  @Prop({ required: true })
-  vaitro: string; // 'Nhân viên', 'Quản lý', 'Giao hàng'
+  @Prop({ type: String, enum: Role, default: Role.STAFF })
+  role: Role;
 
   @Prop({ required: true })
-  matkhau: string;
+  password: string;
 
-
+  @Prop({ default: true })
+  status: boolean;
+  
 }
   export const StaffSchema = SchemaFactory.createForClass(Staff);

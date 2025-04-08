@@ -3,69 +3,69 @@ import { Type } from 'class-transformer';
 
 class OrderDetailDto {
   @IsMongoId()
-  id_dichvu: string;
+  id_service: string; // Đổi 'id_dichvu' thành 'id_service'
 
   @IsMongoId()
   @IsOptional()
-  id_hanghoa?: string;
+  id_goods?: string; // Đổi 'id_hanghoa' thành 'id_goods'
 
   @IsNumber()
-  soluong: number;
+  quantity: number; // Giữ nguyên 'soluong'
 
   @IsNumber()
-  gia: number;
+  price: number; // Giữ nguyên 'gia'
 
   @IsNumber()
-  thanhtien: number;
+  subTotal: number; // Đổi 'thanhtien' thành 'subTotal'
 
   @IsString()
   @IsOptional()
-  ghichu?: string;
+  note?: string; // Đổi 'ghichu' thành 'note'
 }
 
 export class CreateLaundryOrderDto {
   @IsMongoId()
-  id_cuahang: string;
+  id_store: string; // Đổi 'id_cuahang' thành 'id_store'
 
   @IsMongoId()
-  id_khachhang: string;
+  id_customer: string; // Đổi 'id_khachhang' thành 'id_customer'
 
   @IsMongoId()
-  id_nhanvien: string;
+  id_staff: string; // Đổi 'id_nhanvien' thành 'id_staff'
 
   @IsDateString()
-  ngay_nhan: string;
+  receivedDate: string; // Đổi 'ngay_nhan' thành 'receivedDate'
 
   @IsOptional()
   @IsDateString()
-  ngay_tra?: string;
+  returnedDate?: string; // Đổi 'ngay_tra' thành 'returnedDate'
 
   @IsOptional()
   @IsString()
-  diachi_nhan?: string;
+  pickupAddress?: string; // Đổi 'diachi_nhan' thành 'pickupAddress'
 
   @IsOptional()
   @IsString()
-  diachi_giao?: string;
+  deliveryAddress?: string; // Đổi 'diachi_giao' thành 'deliveryAddress'
 
   @IsNumber()
-  tong_tien: number;
+  totalAmount: number; // Đổi 'tong_tien' thành 'totalAmount'
 
   @IsOptional()
   @IsNumber()
-  tien_khuyenmai?: number;
+  discountAmount?: number; // Đổi 'tien_khuyenmai' thành 'discountAmount'
 
   @IsNumber()
-  tien_thu: number;
+  amountPaid: number; // Đổi 'tien_thu' thành 'amountPaid'
 
   @IsString()
-  trangthai: string;
+  status: string; // Giữ nguyên 'trangthai'
 
   @IsOptional()
   @IsMongoId()
-  id_khuyenmai?: string;
+  promotionId?: string; // Đổi 'id_khuyenmai' thành 'promotionId'
 
   @IsArray()
   @Type(() => OrderDetailDto)
-  details: OrderDetailDto[];
+  orderDetails: OrderDetailDto[]; // Đổi 'details' thành 'orderDetails'
 }

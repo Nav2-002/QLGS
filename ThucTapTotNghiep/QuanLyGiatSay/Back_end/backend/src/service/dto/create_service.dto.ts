@@ -1,12 +1,14 @@
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateServiceDto {
   @IsNotEmpty()
-  ten_dichvu: string;
+  @IsString()
+  name: string; 
 
   @IsNumber()
-  gia: number;
+  price: number; 
 
   @IsOptional()
-  mo_ta?: string;
+  @IsString()
+  description?: string;
 }

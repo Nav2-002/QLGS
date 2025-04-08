@@ -8,11 +8,12 @@ import { CustomerModule } from 'src/customer/customer.module';
 import { CustomerRepository } from 'src/customer/customer.repository';
 import { AdminModule } from 'src/admin/admin.module';
 import { AdminRepository } from 'src/admin/admin.repository';
-
+import { StaffModule } from 'src/staff/staff.module';
 @Module({
   imports: [
     AdminModule,         // đã export AdminRepository rồi
     CustomerModule,      // đã export CustomerRepository rồi
+    StaffModule,
     JwtModule.registerAsync({
       useFactory: () => ({
         secret:

@@ -8,30 +8,30 @@ import { UpdateStaffDto } from './dto/update_staff.dto';
 import { StaffRepository } from './staff.repository';
 import { checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
-import { CreateStoreDto } from 'src/store/dto/create_store.dto';
-import { CreateMembershipCardDto } from 'src/membership_card/dto/create_membership_card.dto';
-import { UpdateMembershipCardDto } from 'src/membership_card/dto/update_membership_card.dto';
+import * as bcrypt from 'bcrypt'; // Import bcrypt
 
 @Injectable()
 export class StaffService {
   constructor(private readonly repository: StaffRepository) {}
 
   async createStaff(createStaffDto: CreateStaffDto) {
-    const { id_store, ten, sodienthoai, email, vaitro, matkhau } =
-      createStaffDto;
+    const { id_store, name, phoneNumber, email, role, password, status } = createStaffDto;
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     try {
       if (id_store) {
         checkValisIsObject(id_store, 'id_store');
-        // You might want to validate if the staff exists here, similar to the previous example.
+        // You might want to validate if the store exists here.
       }
       return await this.repository.create({
         id_store,
-        ten,
-        sodienthoai,
+        name,
+        phoneNumber,
         email,
-        vaitro,
-        matkhau,
+        role,
+        password: hashedPassword, // Lưu mật khẩu đã băm,
+        status
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);
@@ -39,34 +39,37 @@ export class StaffService {
   }
 
   async findById(id: string) {
-    checkValisIsObject(id, 'store id');
-    const store = await this.repository.findOne(id);
-    if (!store) {
-      throw new NotFoundException('không tìm thấy cửa hàng');
+    checkValisIsObject(id, 'staff id');
+    const staff = await this.repository.findOne(id);
+    if (!staff) {
+      throw new NotFoundException('không tìm thấy nhân viên');
     }
-
-    return store;
+    return staff;
   }
 
   async updateById(id: string, staffUpdate: UpdateStaffDto) {
-    const { id_store, ten, sodienthoai, email, vaitro, matkhau } =
-      staffUpdate;
+    const { id_store, name, phoneNumber, email, password } = staffUpdate;
+    let hashedPassword: string | undefined = undefined;
 
-    const store = await this.findById(id);
+    if (password) {
+      const saltRounds = 10;
+      hashedPassword = await bcrypt.hash(password, saltRounds);
+    }
+
+    const staff = await this.findById(id);
 
     try {
       if (id_store) {
         checkValisIsObject(id_store, 'id_store');
-        // You might want to validate if the staff exists here, similar to the previous example.
+        // You might want to validate if the store exists here.
       }
 
-      return await this.repository.updateOne(id, store, {
+      return await this.repository.updateOne(id, staff, {
         id_store,
-        ten,
-        sodienthoai,
+        name,
+        phoneNumber,
         email,
-        vaitro,
-        matkhau,
+        password: hashedPassword !== undefined ? hashedPassword : staff.password,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');
@@ -74,29 +77,23 @@ export class StaffService {
   }
 
   async deleteById(id: string) {
-    const store = await this.findById(id);
-
-    await this.repository.deleteOne(store._id.toHexString());
-
-    return store;
+    const staff = await this.findById(id);
+    await this.repository.deleteOne(staff._id.toHexString());
+    return staff;
   }
 
   async updateStatusById(id: string, status: boolean) {
-    checkValisIsObject(id, 'store id');
-
-    const staff = await this.repository.updateStatusById(id, status);
-    if (!staff) {
+    checkValisIsObject(id, 'staff id');
+    const updatedStaff = await this.repository.updateStatusById(id, status);
+    if (!updatedStaff) {
       throw new NotFoundException('không tìm thấy id nhân viên');
     }
-
-    return staff;
+    return updatedStaff;
   }
 
   findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
-
     const newSort = sort != 'asc' ? 'desc' : 'asc';
-
     return this.repository.findAll(page, limit, newSort, keyword);
   }
 

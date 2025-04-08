@@ -3,11 +3,11 @@ import { IsOptional, IsString, IsEmail, IsDateString, MinLength } from 'class-va
 export class UpdateCustomerDto {
   @IsOptional()
   @IsString()
-  readonly ten?: string;
+  readonly name?: string;
 
   @IsOptional()
   @IsString()
-  readonly sodienthoai?: string;
+  readonly phoneNumber?: string;
 
   @IsOptional()
   @IsEmail()
@@ -15,21 +15,21 @@ export class UpdateCustomerDto {
 
   @IsOptional()
   @IsString()
-  readonly diachi?: string;
+  readonly address?: string;
 
   @IsOptional()
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  mat_khau?: string;
+  password?: string;
 
   @IsOptional()
   @IsDateString()
-  readonly ngay_sinh?: Date;
+  readonly birth_Day?: Date;
 
   @IsOptional()
   @IsString()
-  readonly loai_khach?: string;
+  readonly customer_type?: string;
 
   @IsOptional()
   @IsString()
-  readonly vaitro?: string;
+  readonly role?: string;
 }

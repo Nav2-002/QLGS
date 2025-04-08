@@ -1,14 +1,16 @@
-import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { IsOptional, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UpdateServiceDto {
   @IsOptional()
   @IsNotEmpty()
-  ten_dichvu?: string;
+  @IsString()
+  name?: string;
 
   @IsOptional()
   @IsNumber()
-  gia?: number;
+  price?: number; 
 
   @IsOptional()
-  mo_ta?: string;
+  @IsString()
+  description?: string; 
 }

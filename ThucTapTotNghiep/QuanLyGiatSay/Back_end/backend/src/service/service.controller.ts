@@ -41,7 +41,7 @@ export class ServiceController {
     const services = await this.serviceService.findAll(params);
 
     const rootServices = services.filter((service) => {
-      return service.mo_ta === null;
+      return service.description === null;
     });
 
     return buildPagination<Service>(services, params, rootServices);

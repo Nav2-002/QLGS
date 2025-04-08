@@ -42,14 +42,14 @@ export class SupplierRepository {
 
   async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
     const filter = keyword
-      ? { ten: { $regex: keyword, $options: 'i' } }
+      ? { name: { $regex: keyword, $options: 'i' } }
       : {};
 
     return await this.model
       .find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-      .sort({ ten: sort === 'asc' ? 1 : -1 })
+      .sort({ name: sort === 'asc' ? 1 : -1 })
       .lean<Supplier[]>(true);
   }
 }

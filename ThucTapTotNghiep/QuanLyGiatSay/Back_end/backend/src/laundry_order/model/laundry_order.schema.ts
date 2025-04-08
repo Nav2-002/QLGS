@@ -3,67 +3,64 @@ import { SchemaTypes, Types, Document } from 'mongoose';
 
 export type LaundryOrderDocument = LaundryOrder & Document;
 
-@Schema({ versionKey: false })
+@Schema({ versionKey: false, timestamps: { createdAt: 'createdAt', updatedAt: false } }) // Đổi createdAt
 export class LaundryOrder {
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Store', required: true })
+  id_store: Types.ObjectId; // Đổi 'id_cuahang' thành 'id_store'
 
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Customer', required: true })
+  id_customer: Types.ObjectId; // Đổi 'id_khachhang' thành 'id_customer'
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'CuaHang', required: true })
-  id_cuahang: Types.ObjectId;
-
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'KhachHang', required: true })
-  id_khachhang: Types.ObjectId;
-
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'NhanVien', required: true })
-  id_nhanvien: Types.ObjectId;
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Staff', required: true })
+  id_staff: Types.ObjectId; // Đổi 'id_nhanvien' thành 'id_staff'
 
   @Prop({ type: Date, required: true })
-  ngay_nhan: Date;
+  receivedDate: Date; // Đổi 'ngay_nhan' thành 'receivedDate'
 
   @Prop({ type: Date, default: null })
-  ngay_tra: Date;
+  returnedDate: Date; // Đổi 'ngay_tra' thành 'returnedDate'
 
   @Prop({ type: String })
-  diachi_nhan: string;
+  pickupAddress: string; // Đổi 'diachi_nhan' thành 'pickupAddress'
 
   @Prop({ type: String })
-  diachi_giao: string;
+  deliveryAddress: string; // Đổi 'diachi_giao' thành 'deliveryAddress'
 
   @Prop({ type: Number, required: true })
-  tong_tien: number;
+  totalAmount: number; // Đổi 'tong_tien' thành 'totalAmount'
 
   @Prop({ type: Number, default: 0 })
-  tien_khuyenmai: number;
+  discountAmount: number; // Đổi 'tien_khuyenmai' thành 'discountAmount'
 
   @Prop({ type: Number, required: true })
-  tien_thu: number;
+  amountPaid: number; // Đổi 'tien_thu' thành 'amountPaid'
 
   @Prop({ type: String, required: true })
-  trangthai: string;
+  status: string; // Giữ nguyên 'trangthai' vì 'status' đã phù hợp
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: 'KhuyenMai', default: null })
-  id_khuyenmai: Types.ObjectId;
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Promotion', default: null })
+  id_promiton: Types.ObjectId; // Đổi 'id_khuyenmai' thành 'id_promotion'
 
-  @Prop({ type: Date, default: Date.now })
-  created_at?: Date;
+  // createdAt sẽ được quản lý bởi timestamps
 
   @Prop({
     type: [
       {
-        id_dichvu: { type: SchemaTypes.ObjectId, ref: 'Service', required: true },
-        soluong: { type: Number, required: true },
-        gia: { type: Number, required: true },
-        thanhtien: { type: Number, required: true },
-        ghichu: { type: String, default: '' }
+        id_service: { type: SchemaTypes.ObjectId, ref: 'Service', required: true }, // Đổi 'id_dichvu' thành 'id_service'
+        quantity: { type: Number, required: true }, // Giữ nguyên 'soluong'
+        price: { type: Number, required: true }, // Giữ nguyên 'gia'
+        subTotal: { type: Number, required: true }, // Đổi 'thanhtien' thành 'subTotal'
+        note: { type: String, default: '' } // Đổi 'ghichu' thành 'note'
       }
     ],
     default: []
   })
-  details: {
-    id_dichvu: Types.ObjectId;
-    soluong: number;
-    gia: number;
-    thanhtien: number;
-    ghichu?: string;
+  orderDetails: { // Đổi 'details' thành 'orderDetails'
+    id_service: Types.ObjectId; // Đổi 'id_service'
+    quantity: number; // Giữ nguyên
+    price: number; // Giữ nguyên
+    subTotal: number; // Đổi 'thanhtien'
+    note?: string; // Đổi 'ghichu'
   }[];
 }
 

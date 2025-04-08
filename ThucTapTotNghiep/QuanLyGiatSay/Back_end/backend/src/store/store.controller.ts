@@ -41,7 +41,7 @@ export class StoreController {
     const stores = await this.storeService.findAll(params);
 
     const rootStores = stores.filter((store) => {
-      return store.id_quanly === null;
+      return store.id_manager === null;
     });
 
     return buildPagination<Store>(stores, params, rootStores);

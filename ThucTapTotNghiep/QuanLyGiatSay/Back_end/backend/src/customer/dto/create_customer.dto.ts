@@ -2,28 +2,28 @@ import { IsString, IsEmail, IsDateString, IsNotEmpty, MinLength } from 'class-va
 
 export class CreateCustomerDto {
   @IsString()
-  readonly ten: string;
+  readonly name: string;
 
   @IsString()
-  readonly sodienthoai: string;
+  readonly phoneNumber: string;
 
   @IsEmail()
   readonly email: string;
 
   @IsString()
-  readonly diachi: string;
+  readonly address: string;
 
   @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  mat_khau: string;
+  password: string;
 
 
   @IsDateString()
-  readonly ngay_sinh: Date;
+  readonly birth_Day: Date;
 
   @IsString()
-  readonly loai_khach: string;
+  readonly customer_type:  string;
 
   @IsString()
-  readonly vaitro: string;
+  readonly role: string;
 }

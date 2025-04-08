@@ -9,29 +9,29 @@ export class Goods {
   _id: Types.ObjectId;
 
   @Prop({ required: true })
-  ten_hanghoa: string;
+  name: string; // Đổi 'ten_hanghoa' thành 'name'
 
   @Prop({ required: true })
-  loai: string;
+  category: string; // Đổi 'loai' thành 'category'
 
   @Prop({ required: true })
-  soluong: number;
+  quantity: number; // Đổi 'soluong' thành 'quantity'
 
   @Prop({ required: true })
-  gia: number;
+  price: number; // Đổi 'gia' thành 'price'
 
   @Prop()
-  han_su_dung?: Date;
+  expiryDate?: Date; // Đổi 'han_su_dung' thành 'expiryDate'
 
   @Prop({ required: true })
-  donvi: string;
+  unit: string; // Đổi 'donvi' thành 'unit'
 
   @Prop({ required: true, default: true })
-  trangthai: boolean;
+  status: boolean; // Giữ nguyên 'trangthai' vì 'status' đã phù hợp
 
   // Liên kết đến cửa hàng (id của STORE)
   @Prop({ type: SchemaTypes.ObjectId, ref: 'Store', required: false })
-  id_cuahang: Types.ObjectId;
+  id_store?: Types.ObjectId; // Đổi 'id_cuahang' thành 'storeId'
 }
 
 export const GoodsSchema = SchemaFactory.createForClass(Goods);

@@ -14,20 +14,20 @@ export class StoreService {
   constructor(private readonly repository: StoreRepository) {}
 
   async createStore(createStoreDto: CreateStoreDto) {
-    const { ten_cuahang, sodienthoai, diachi, trangthai, id_quanly } =
+    const { name, phoneNumber, address, status, id_manager } =
       createStoreDto;
 
     try {
-      if (id_quanly) {
-        checkValisIsObject(id_quanly, 'id_quanly');
+      if (id_manager) {
+        checkValisIsObject(id_manager, 'id_manager');
         // You might want to validate if the staff exists here, similar to the previous example.
       }
       return await this.repository.create({
-        ten_cuahang,
-        sodienthoai,
-        diachi,
-        trangthai,
-        id_quanly,
+        name,
+        phoneNumber,
+        address,
+        status,
+        id_manager,
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);
@@ -45,23 +45,23 @@ export class StoreService {
   }
 
   async updateById(id: string, storeUpdate: UpdateStoreDto) {
-    const { ten_cuahang, sodienthoai, diachi, trangthai, id_quanly } =
+    const { name, phoneNumber, address, status, id_manager } =
       storeUpdate;
 
     const store = await this.findById(id);
 
     try {
-      if (id_quanly) {
-        checkValisIsObject(id_quanly, 'id_quanly');
+      if (id_manager) {
+        checkValisIsObject(id_manager, 'id_manager');
         // You might want to validate if the staff exists here, similar to the previous example.
       }
 
       return await this.repository.updateOne(id, store, {
-        ten_cuahang,
-        sodienthoai,
-        diachi,
-        trangthai,
-        id_quanly,
+        name,
+        phoneNumber,
+        address,
+        status,
+        id_manager,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');

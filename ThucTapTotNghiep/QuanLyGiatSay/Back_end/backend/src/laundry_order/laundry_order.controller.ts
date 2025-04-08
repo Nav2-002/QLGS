@@ -35,7 +35,7 @@ export class LaundryOrderController {
       params.keyword,
     );
 
-    const rootLaundryOrder = laundryOrders.filter((order) => order.id_cuahang === null);
+    const rootLaundryOrder = laundryOrders.filter((order) => order.id_store === null);
 
     return buildPagination<LaundryOrder>(laundryOrders, params, rootLaundryOrder);
   }

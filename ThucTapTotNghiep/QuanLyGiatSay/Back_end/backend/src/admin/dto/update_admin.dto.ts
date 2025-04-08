@@ -10,7 +10,7 @@ export class UpdateAdminDto {
 
   @IsOptional()
   @MinLength(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự' })
-  mat_khau?: string;
+  password?: string;
 
   @IsOptional()
   vaitro?: string;

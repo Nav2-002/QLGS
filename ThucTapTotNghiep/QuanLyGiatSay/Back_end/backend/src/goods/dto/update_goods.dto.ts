@@ -1,35 +1,37 @@
 import { IsNotEmpty, IsOptional, IsString, IsNumber, IsDate, IsBoolean, IsMongoId } from 'class-validator';
+import { Type } from 'class-transformer'; // Thêm import cho Type
 
 export class UpdateGoodsDto {
   @IsOptional()
   @IsString()
-  ten_hanghoa?: string;
+  name?: string;
 
   @IsOptional()
   @IsString()
-  loai?: string;
+  category?: string;
 
   @IsOptional()
   @IsNumber()
-  soluong?: number;
+  quantity?: number;
 
   @IsOptional()
   @IsNumber()
-  gia?: number;
+  price?: number;
 
   @IsOptional()
   @IsDate()
-  han_su_dung?: Date;
+  @Type(() => Date) 
+  expiryDate?: Date;
 
   @IsOptional()
   @IsString()
-  donvi?: string;
+  unit?: string;
 
   @IsOptional()
   @IsBoolean()
-  trangthai?: boolean;
+  status?: boolean;
 
   @IsOptional()
   @IsMongoId()
-  id_cuahang?: string; // Liên kết đến cửa hàng
+  id_store?: string;
 }

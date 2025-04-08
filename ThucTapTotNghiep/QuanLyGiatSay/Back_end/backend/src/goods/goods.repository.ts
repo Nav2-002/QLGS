@@ -42,24 +42,24 @@ export class GoodsRepository {
 
   async updateStatusById(id: string, status: boolean) {
     return await this.model
-      .findOneAndUpdate({ _id: id }, { trangthai: status }, { new: true })
+      .findOneAndUpdate({ _id: id }, { new: true })
       .lean<Goods>(true);
   }
 
   async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
     const filter = keyword
-      ? { ten_hanghoa: { $regex: keyword, $options: 'i' } }
+      ? { name: { $regex: keyword, $options: 'i' } }
       : {};
 
     return await this.model
       .find(filter)
       .skip((page - 1) * limit)
       .limit(limit)
-      .sort({ ten_hanghoa: sort === 'asc' ? 1 : -1 })
+      .sort({ name: sort === 'asc' ? 1 : -1 })
       .lean<Goods[]>(true);
   }
 
   async findAllGetName() {
-    return await this.model.find().select('ten_hanghoa').lean<Goods[]>(true);
+    return await this.model.find().select('name').lean<Goods[]>(true);
   }
 }

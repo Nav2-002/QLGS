@@ -7,27 +7,27 @@ export type PromotionDocument = Promotion & Document;
 export class Promotion {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
-  
-  @Prop({ required: true })
-  ten_khuyenmai: string;
 
   @Prop({ required: true })
-  mo_ta: string;
+  name: string; // Đổi 'ten_khuyenmai' thành 'name'
 
   @Prop({ required: true })
-  loai_khuyenmai: string; // 'Phần trăm' hoặc 'Tiền mặt'
+  description: string; // Đổi 'mo_ta' thành 'description'
+
+  @Prop({ required: true })
+  type: string; // Đổi 'loai_khuyenmai' thành 'type' ('Percentage' or 'Cash')
 
   @Prop({ required: true, type: Number })
-  gia_tri: number;
+  value: number; // Đổi 'gia_tri' thành 'value'
 
   @Prop({ required: true })
-  ngay_bat_dau: Date;
+  startDate: Date; // Đổi 'ngay_bat_dau' thành 'startDate'
 
   @Prop({ required: true })
-  ngay_ket_thuc: Date;
+  endDate: Date; // Đổi 'ngay_ket_thuc' thành 'endDate'
 
   @Prop({ required: true, type: Boolean })
-  trangthai: boolean;
+  status: boolean; // Giữ nguyên 'trangthai' vì 'status' đã phù hợp
 }
 
 export const PromotionSchema = SchemaFactory.createForClass(Promotion);

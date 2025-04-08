@@ -7,45 +7,45 @@ import { Staff, StaffDocument } from 'src/staff/model/staff.schema';
 
 @Injectable()
 export class StaffRepository {
-  constructor(@InjectModel(Staff.name) private readonly model: Model<Staff>) {}
+  constructor(@InjectModel(Staff.name) private readonly model: Model<StaffDocument>) {}
 
   async findByEmail(email: string): Promise<StaffDocument | null> {
     return this.model.findOne({ email }).exec();
-}
+  }
 
-  async create(staff: CreateStaffDto) {
+  async create(staff: CreateStaffDto): Promise<StaffDocument> {
     const newStaff = await new this.model({
       _id: new Types.ObjectId(),
       ...staff,
     }).save();
-
     return newStaff;
   }
 
-  async findOne(id: string) {
-    return await this.model.findOne({ _id: id }).lean<Staff>(true);
+  async findOne(id: string): Promise<Staff | null> {
+    return await this.model.findOne({ _id: id }).lean<Staff>().exec();
   }
 
-  async updateOne(id: string, staffOld: Staff, staffNew: UpdateStaffDto) {
+  async updateOne(
+    id: string,
+    staffOld: Staff,
+    staffNew: UpdateStaffDto,
+  ): Promise<StaffDocument | null> {
     const updateStaff = await this.model.findOneAndUpdate(
       { _id: id },
       staffNew,
-      {
-        new: true,
-      },
-    );
-
+      { new: true },
+    ).exec();
     return updateStaff;
   }
 
-  async deleteOne(id: string) {
-    return await this.model.findOneAndDelete({ _id: id });
+  async deleteOne(id: string): Promise<StaffDocument | null> {
+    return await this.model.findOneAndDelete({ _id: id }).exec();
   }
 
-  async updateStatusById(id: string, status: boolean) {
+  async updateStatusById(id: string, status: boolean): Promise<StaffDocument | null> {
     return await this.model
-      .findOneAndUpdate({ _id: id }, { trangthai: status }, { new: true })
-      .lean<Staff>(true);
+      .findOneAndUpdate({ _id: id }, { status }, { new: true })
+      .exec();
   }
 
   async findAll(
@@ -53,16 +53,17 @@ export class StaffRepository {
     limit: number,
     sort: 'asc' | 'desc',
     keyword: any,
-  ) {
+  ): Promise<Staff[]> {
     return await this.model
-      .find(keyword ? { $or: [{ so_the: new RegExp(keyword, 'i') }] } : {})
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {}) // Tìm kiếm theo 'name'
       .skip((page - 1) * limit)
-      .sort({ so_the: sort })
+      .sort({ name: sort }) // Sắp xếp theo 'name'
       .limit(limit)
-      .lean<Staff[]>(true);
+      .lean<Staff[]>()
+      .exec();
   }
 
-  async findAllGetName() {
-    return await this.model.find().lean<Staff[]>(true);
+  async findAllGetName(): Promise<Staff[]> {
+    return await this.model.find().lean<Staff[]>().exec();
   }
 }

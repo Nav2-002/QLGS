@@ -51,9 +51,9 @@ export class PromotionRepository {
     keyword: any,
   ) {
     return await this.model
-      .find(keyword ? { $or: [{ ten_khuyenmai: new RegExp(keyword, 'i') }] } : {})
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ ten_khuyenmai: sort })
+      .sort({ name: sort })
       .limit(limit)
       .lean<Promotion[]>(true);
   }

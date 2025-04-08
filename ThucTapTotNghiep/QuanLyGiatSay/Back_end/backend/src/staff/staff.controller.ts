@@ -10,10 +10,6 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-// import { Roles } from 'src/auth/decorator/role.decorator';
-// import { Role } from 'src/auth/decorator/role.enum';
-// import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-// import { RoleAuthGuard } from 'src/auth/guards/role-jwt.guard';
 import { CreateStaffDto } from './dto/create_staff.dto';
 import { UpdateStaffDto } from './dto/update_staff.dto';
 import { Staff } from 'src/staff/model/staff.schema';
@@ -40,11 +36,13 @@ export class StaffController {
   async getAll(@Query() params: ParamPaginationDto) {
     const staffs = await this.staffService.findAll(params);
 
-    const rootStaffs = staffs.filter((staff) => {
-      return staff.id_store === null;
-    });
+    // Logic lọc 'rootStaffs' có vẻ không phù hợp với schema mới.
+    // 'id_store' là required, nên không có staff nào có 'id_store' là null.
+    // Nếu bạn có một khái niệm khác về "root staff", hãy điều chỉnh logic lọc.
+    // Ví dụ: lọc theo một role cụ thể.
+    // const rootStaffs = staffs.filter((staff) => staff.role === 'ROOT');
 
-    return buildPagination<Staff>(staffs, params, rootStaffs);
+    return buildPagination<Staff>(staffs, params, staffs); // Trả về tất cả staffs hoặc logic lọc đã điều chỉnh
   }
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)

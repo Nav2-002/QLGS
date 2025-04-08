@@ -3,29 +3,29 @@ import { IsNotEmpty, IsEnum, IsNumber, IsDateString, IsBoolean, IsOptional } fro
 export class UpdatePromotionDto {
   @IsNotEmpty()
   @IsOptional()
-  ten_khuyenmai: string;
+  name?: string; // Đổi 'ten_khuyenmai' thành 'name'
 
   @IsOptional()
-  mo_ta?: string;
+  description?: string; // Đổi 'mo_ta' thành 'description'
 
   @IsNotEmpty()
   @IsOptional()
-  @IsEnum(['Phần trăm', 'Tiền mặt'])
-  loai_khuyenmai: string;
+  @IsEnum(['Percentage', 'Cash']) // Đổi enum values sang tiếng Anh
+  type?: string; // Đổi 'loai_khuyenmai' thành 'type'
 
   @IsNumber()
   @IsOptional()
-  gia_tri: number;
+  value?: number; // Đổi 'gia_tri' thành 'value'
 
   @IsDateString()
   @IsOptional()
-  ngay_bat_dau: Date;
+  startDate?: Date; // Đổi 'ngay_bat_dau' thành 'startDate'
 
   @IsDateString()
   @IsOptional()
-  ngay_ket_thuc: Date;
+  endDate?: Date; // Đổi 'ngay_ket_thuc' thành 'endDate'
 
   @IsBoolean()
   @IsOptional()
-  trangthai: boolean;
+  status?: boolean; // Giữ nguyên 'trangthai' thành 'status'
 }

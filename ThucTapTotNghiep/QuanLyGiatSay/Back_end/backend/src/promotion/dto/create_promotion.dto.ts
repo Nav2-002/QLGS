@@ -1,26 +1,25 @@
-// src/promotion/dto/create_promotion.dto.ts
 import { IsNotEmpty, IsNumber, IsDateString, IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 
 export class CreatePromotionDto {
   @IsNotEmpty()
-  ten_khuyenmai: string;
+  name: string; // Đổi 'ten_khuyenmai' thành 'name'
 
   @IsString()
   @IsOptional()
-  mo_ta: string;
+  description: string; // Đổi 'mo_ta' thành 'description'
 
-  @IsEnum(['Phần trăm', 'Tiền mặt'])
-  loai_khuyenmai: string;
+  @IsEnum(['Percentage', 'Cash']) // Đổi enum values sang tiếng Anh
+  type: string; // Đổi 'loai_khuyenmai' thành 'type'
 
   @IsNumber()
-  gia_tri: number;
+  value: number; // Đổi 'gia_tri' thành 'value'
 
   @IsDateString()
-  ngay_bat_dau: string;
+  startDate: string; // Đổi 'ngay_bat_dau' thành 'startDate'
 
   @IsDateString()
-  ngay_ket_thuc: string;
+  endDate: string; // Đổi 'ngay_ket_thuc' thành 'endDate'
 
   @IsBoolean()
-  trangthai: boolean;
+  status: boolean; // Giữ nguyên 'trangthai' thành 'status'
 }

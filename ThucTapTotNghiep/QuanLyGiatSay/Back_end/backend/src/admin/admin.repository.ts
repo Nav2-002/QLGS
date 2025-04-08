@@ -4,10 +4,6 @@ import { Model, Types } from 'mongoose';
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { UpdateAdminDto } from './dto/update_admin.dto';
 import { Admin, AdminDocument } from 'src/admin/model/admin.schema';
-import { CreateStoreDto } from 'src/store/dto/create_store.dto';
-import { UpdateStoreDto } from 'src/store/dto/update_store.dto';
-import { CreateCustomerDto } from 'src/customer/dto/create_customer.dto';
-import { CustomerDocument } from 'src/customer/model/customer.schema';
 
 @Injectable()
 export class AdminRepository {

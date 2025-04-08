@@ -7,7 +7,7 @@ export class CreateSupplierDto {
 
   @IsNotEmpty()
   @IsString()
-  ten: string;
+  name: string;
 
   @IsOptional()
   @IsString()

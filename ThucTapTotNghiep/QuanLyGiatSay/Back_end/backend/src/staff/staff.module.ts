@@ -4,6 +4,7 @@ import { StaffController } from './staff.controller';
 import { DatabaseModule } from 'src/config/db';
 import { Staff, StaffSchema} from './model/staff.schema';
 import { StaffRepository } from './staff.repository';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -12,7 +13,12 @@ import { StaffRepository } from './staff.repository';
     ])
   ],
   controllers: [StaffController],
-  providers: [StaffService, StaffRepository]
-})
+  providers: [StaffService, StaffRepository],
+  exports: [
+      StaffService,
+      StaffRepository,
+      MongooseModule, // ❗ Export cái này để AuthModule có thể dùng được AdminModel
+    ],
+  })
 export class StaffModule {}
 

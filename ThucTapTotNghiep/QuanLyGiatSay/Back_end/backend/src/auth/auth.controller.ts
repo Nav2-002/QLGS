@@ -8,12 +8,17 @@ export class AuthController {
 
   @Post('admin/login')
   loginUser(@Body() login: LoginDto) {
-    return this.authService.validateUser(login);
+    return this.authService.validateAdmin(login);
   }
 
   // dang nhap customer
   @Post('customers/login')
   loginCustomer(@Body() login: LoginDto) {
     return this.authService.validateCustomer(login);
+  }
+
+  @Post('staff/login')
+  loginStaff(@Body() login: LoginDto) {
+    return this.authService.validateStaff(login);
   }
 }

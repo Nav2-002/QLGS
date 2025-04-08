@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, SchemaTypes, Types } from 'mongoose';
+import { Role } from 'src/auth/decorator/role.enum';
 
 export type CustomerDocument = Customer & Document;
 
@@ -12,7 +13,7 @@ export class Customer {
   name: string;
 
   @Prop({ required: true })
-  phone: string;
+  phoneNumber: string;
 
   @Prop({ unique: true })
   email?: string;
@@ -29,8 +30,8 @@ export class Customer {
   @Prop()
   customer_type?: string;
 
-  @Prop({ default: 'customer' })
-  role: string;
+  @Prop({ type: String, enum: Role, default: Role.CUSTOMER })
+  role: Role;
 
   @Prop({ default: true })
   status: boolean;

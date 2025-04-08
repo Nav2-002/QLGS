@@ -46,20 +46,20 @@ export class PromotionService {
       throw new BadRequestException(errors);
     }
 
-    const { ten_khuyenmai, mo_ta, loai_khuyenmai, gia_tri, ngay_bat_dau, ngay_ket_thuc, trangthai } =
+    const { name, description, type, value, startDate, endDate, status } =
       promotionUpdate;
 
     const promotion = await this.findById(id);
 
     try {
       return await this.repository.updateOne(id, promotion, {
-        ten_khuyenmai,
-        mo_ta,
-        loai_khuyenmai,
-        gia_tri,
-        ngay_bat_dau,
-        ngay_ket_thuc,
-        trangthai,
+        name,
+        description,
+        type,
+        value,
+        startDate,
+        endDate,
+        status,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');

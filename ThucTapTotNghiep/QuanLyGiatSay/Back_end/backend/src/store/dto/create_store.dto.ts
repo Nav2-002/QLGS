@@ -3,21 +3,21 @@ import { IsNotEmpty, IsOptional, IsString, IsBoolean, IsMongoId } from 'class-va
 export class CreateStoreDto {
   @IsNotEmpty()
   @IsString()
-  ten_cuahang: string;
+  name: string; // Đổi 'ten_cuahang' thành 'name'
 
   @IsOptional()
   @IsString()
-  sodienthoai?: string;
+  phoneNumber?: string; // Đổi 'sodienthoai' thành 'phoneNumber'
 
   @IsOptional()
   @IsString()
-  diachi?: string;
+  address?: string; // Đổi 'diachi' thành 'address'
 
   @IsOptional()
   @IsBoolean()
-  trangthai?: boolean;
+  status?: boolean; // Giữ nguyên 'trangthai' thành 'status'
 
   @IsOptional()
   @IsMongoId()
-  id_quanly?: string; 
+  id_manager?: string; // Đổi 'id_quanly' thành 'managerId'
 }
