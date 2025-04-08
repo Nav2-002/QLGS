@@ -15,12 +15,13 @@ export class CustomerService {
   constructor(private readonly repository: CustomerRepository) {}
 
   async createCustomer(createCustomerDto: CreateCustomerDto) {
+    console.log('Data received for createCustomer:', createCustomerDto);
     const {
       name,
       phoneNumber,
       email,
       address,
-      birth_Day,
+      birth_date,
       customer_type,
       password,
       role,
@@ -35,7 +36,7 @@ export class CustomerService {
         phoneNumber,
         email,
         address,
-        birth_Day,
+        birth_date,
         password: hashedPassword, // Lưu mật khẩu đã băm
         customer_type,
         role,
@@ -61,7 +62,7 @@ export class CustomerService {
       phoneNumber,
       email,
       address,
-      birth_Day,
+      birth_date,
       customer_type,
       password,
       role,
@@ -81,7 +82,7 @@ export class CustomerService {
         phoneNumber,
         email,
         address,
-        birth_Day,
+        birth_date,
         password: hashedPassword !== undefined ? hashedPassword : customer.password, // Lưu mật khẩu đã băm (nếu có thay đổi)
         customer_type,
         role,

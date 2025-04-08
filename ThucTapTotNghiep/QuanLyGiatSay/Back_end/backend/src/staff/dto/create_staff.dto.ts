@@ -18,11 +18,11 @@ export class CreateStaffDto {
 
   @IsOptional()
   @IsString()
-  phoneNumber?: string;
+  phoneNumber: string;
 
 
   @IsEmail({}, { message: 'Invalid email' })
-  email?: string;
+  email: string;
 
   @IsNotEmpty()
   @IsString()
