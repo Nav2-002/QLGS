@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6ae97b84-8049-40ec-a600-b43ee7ce7fbc",
+		"_postman_id": "a4a50394-cf48-495a-b179-e8662ec7054c",
 		"name": "QuanLyGiatSay",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38696238"
+		"_exporter_id": "38919917"
 	},
 	"item": [
 		{
@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ten\": \"Nguyễn Văn Ba\",\r\n    \"sodienthoai\": \"0909123456\",\r\n    \"email\": \"ba.nguyen@gmail.com\",\r\n    \"diachi\": \"123 Lê Lợi, Q1\",\r\n    \"ngay_sinh\": \"1995-05-10\",\r\n    \"loai_khach\": \"Cá nhân\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Nguyễn Văn Ba\",\r\n    \"password\":\"123456\",\r\n    \"phoneNumber\": \"0909123456\",\r\n    \"email\": \"banguyen@gmail.com\",\r\n    \"address\": \"123 Lê Lợi, Q1\",\r\n    \"birth_Day\": \"1995-05-10\",\r\n    \"customer_type\": \"CUSTOMER\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +107,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"diachi\": \"456 Nguyễn Huệ, Q1\",\r\n  \"loai_khach\": \"Công ty giặt đồ \"\r\n}",
+							"raw": "{\r\n  \"address\": \"456 Nguyễn Huệ, Q1\",\r\n  \"customer_type\": \"Công ty giặt đồ \"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -115,7 +115,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/customers/67e101b4cb5bca76fd102586",
+							"raw": "http://localhost:3000/customers/67f4ebbeb510be7867ea4f57",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -123,7 +123,7 @@
 							"port": "3000",
 							"path": [
 								"customers",
-								"67e101b4cb5bca76fd102586"
+								"67f4ebbeb510be7867ea4f57"
 							]
 						}
 					},
@@ -147,6 +147,70 @@
 							"path": [
 								"customers",
 								"67e101b4cb5bca76fd102586"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_customer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"banguyen@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/customers/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register_customer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nguyễn Văn A\",\r\n    \"email\": \"customer1@example.com\",\r\n    \"password\": \"password123\",\r\n    \"phoneNumber\": \"0901234567\",\r\n    \"address\": \"Số 1 Trần Phú, Vĩnh Long\",\r\n    \"customer_type\": \"VIP\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/customers/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"customers",
+								"register"
 							]
 						}
 					},
@@ -303,7 +367,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ten_khuyenmai\": \"Giảm giá khai trương\",\r\n  \"mo_ta\": \"Áp dụng toàn bộ menu\",\r\n  \"loai_khuyenmai\": \"Phần trăm\",\r\n  \"gia_tri\": 15,\r\n  \"ngay_bat_dau\": \"2025-03-25\",\r\n  \"ngay_ket_thuc\": \"2025-03-31\",\r\n  \"trangthai\": true\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Opening Discount\",        // Đổi \"ten_khuyenmai\" thành \"name\"\r\n  \"description\": \"Apply to all menu\", // Đổi \"mo_ta\" thành \"description\"\r\n  \"type\": \"Percentage\",           // Đổi \"loai_khuyenmai\" thành \"type\" và dịch giá trị\r\n  \"value\": 15,                    // Đổi \"gia_tri\" thành \"value\"\r\n  \"startDate\": \"2025-03-25\",      // Đổi \"ngay_bat_dau\" thành \"startDate\"\r\n  \"endDate\": \"2025-03-31\",        // Đổi \"ngay_ket_thuc\" thành \"endDate\"\r\n  \"status\": true                  // \"trangthai\" giữ nguyên vì \"status\" đã phù hợp\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -379,7 +443,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ten_khuyenmai\": \"Giảm giá tết\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Giảm giá tết\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -387,7 +451,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/promotions/67e109a303c660c725cb6637",
+							"raw": "http://localhost:3000/promotions/67f4c0f98556e2582e172967",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -395,7 +459,7 @@
 							"port": "3000",
 							"path": [
 								"promotions",
-								"67e109a303c660c725cb6637"
+								"67f4c0f98556e2582e172967"
 							]
 						}
 					},
@@ -439,7 +503,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ten_dichvu\": \"giặt và sấy\",\r\n  \"gia\": 15000,\r\n  \"mo_ta\": \"chỉ giặt và sấy khô\"\r\n}",
+							"raw": "{\r\n  \"name\": \"giặt và sấy\",\r\n  \"price\": 15000,\r\n  \"description\": \"chỉ giặt và sấy khô\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -515,7 +579,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\r\n  \"gia\": 120000\r\n\r\n}",
+							"raw": "{\r\n\r\n  \"price\": 120000\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -523,7 +587,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/services/67e11671b25766a1b04ff0db",
+							"raw": "http://localhost:3000/services/67f4b568e8ebad8a780dd468",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -531,7 +595,7 @@
 							"port": "3000",
 							"path": [
 								"services",
-								"67e11671b25766a1b04ff0db"
+								"67f4b568e8ebad8a780dd468"
 							]
 						}
 					},
@@ -575,7 +639,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ten_cuahang\": \"chi nhanh 1\",\r\n  \"sodienthoai\": \"032938125\",\r\n  \"diachi\": \"15, nguyễn văn cừ, ninh kiều, cần thơ\",\r\n  \"trangthai\": true\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"branch 1\",             // Đổi \"ten_cuahang\" thành \"name\"\r\n  \"phoneNumber\": \"032938125\",    // Đổi \"sodienthoai\" thành \"phoneNumber\"\r\n  \"address\": \"15, nguyễn văn cừ, ninh kiều, cần thơ\", // Đổi \"diachi\" thành \"address\"\r\n  \"status\": true                 // \"trangthai\" giữ nguyên vì \"status\" đã phù hợp\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -651,7 +715,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"id_quanly\": \"67e129abfb4d8919648f14c7\"\r\n}",
+							"raw": "{\r\n     \"id_manager\": \"67f4aec1ca90a2fd1d2a2696\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -659,7 +723,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/stores/67e126dc8703ac6efb119c98",
+							"raw": "http://localhost:3000/stores/67f4c27e885929eed9826c9e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -667,7 +731,7 @@
 							"port": "3000",
 							"path": [
 								"stores",
-								"67e126dc8703ac6efb119c98"
+								"67f4c27e885929eed9826c9e"
 							]
 						}
 					},
@@ -711,7 +775,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ten_hanghoa\": \"nước giặt Omo\",\r\n  \"loai\": \"nước giặt \",\r\n  \"soluong\": 10,\r\n  \"gia\": 109.000,\r\n  \"han_su_dung\": \"2027-12-31\",\r\n  \"donvi\": \"bịch\",\r\n  \"trangthai\": true,\r\n  \"id_cuahang\": \"67e6a7fd483c0ebc9f98e109\" // Thay thế bằng ID cửa hàng thực tế\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"nước giặt Omo\",        \r\n  \"category\": \"nước giặt\",      \r\n  \"quantity\": 10,              \r\n  \"price\": 109000,            \r\n  \"expiryDate\": \"2027-12-31\",\r\n  \"unit\": \"bịch\",              \r\n  \"status\": true,              \r\n  \"id_store\": \"67e126dc8703ac6efb119c98\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -787,7 +851,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"soluong\": 300\r\n    \r\n}",
+							"raw": "{\r\n    \"quantity\": 300\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -795,7 +859,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/goods/67e12d0b7bd29943eee6b754",
+							"raw": "http://localhost:3000/goods/67f4bc4ee942ca15e43fba6b",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -803,7 +867,7 @@
 							"port": "3000",
 							"path": [
 								"goods",
-								"67e12d0b7bd29943eee6b754"
+								"67f4bc4ee942ca15e43fba6b"
 							]
 						}
 					},
@@ -847,7 +911,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_store\": \"67eea13ae9af41695ea2dc30\",  \r\n  \"ten\": \"ngoc\",\r\n  \"sodienthoai\": \"0987654321\",\r\n  \"email\": \"ngoc@gmail.com\",\r\n  \"vaitro\": \"Nhân viên\",\r\n  \"matkhau\": \"abc123\"\r\n}",
+							"raw": "{\r\n  \"id_store\": \"67f4c27e885929eed9826c9e\",  \r\n  \"name\": \"ngoc\",\r\n  \"phoneNumber\": \"0987654321\",\r\n  \"email\": \"ngoc@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"status\": \"true\",\r\n  \"role\": \"STAFF\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -967,6 +1031,70 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "login_staff",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ngoc@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/staff/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"staff",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register_staff",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_store\": \"67f4c27e885929eed9826c9e\",  \r\n  \"name\": \"Thinh\",\r\n  \"phoneNumber\": \"0123456789\",\r\n  \"email\": \"thinh@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"status\": \"true\",\r\n  \"role\": \"STAFF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/staff/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"staff",
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -983,7 +1111,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_cuahang\": \"67e126dc8703ac6efb119c98\",\r\n  \"id_khachhang\": \"67e0e03e53ac56db249e1227\",\r\n  \"id_nhanvien\": \"67e12ad6fb4d8919648f14d7\",\r\n  \"ngay_nhan\": \"2025-03-25T08:00:00Z\",\r\n  \"ngay_tra\": \"2025-03-27T17:00:00Z\",\r\n  \"diachi_nhan\": \"123 Lê Lợi, Q.1\",\r\n  \"diachi_giao\": \"456 Nguyễn Huệ, Q.1\",\r\n  \"tong_tien\": 200000,\r\n  \"tien_khuyenmai\": 20000,\r\n  \"tien_thu\": 180000,\r\n  \"trangthai\": \"Phiếu nhận\"\r\n}\r\n",
+							"raw": "{\r\n  \"id_store\": \"67f4aca2ca90a2fd1d2a2690\",        \r\n  \"id_customer\": \"67e0e03e53ac56db249e1227\",    \r\n  \"id_staff\": \"67e12ad6fb4d8919648f14d7\",       \r\n  \"receivedDate\": \"2025-03-25T08:00:00Z\",      \r\n  \"returnedDate\": \"2025-03-27T17:00:00Z\",      \r\n  \"pickupAddress\": \"123 Lê Lợi, Q.1\",       \r\n  \"deliveryAddress\": \"456 Nguyễn Huệ, Q.1\",   \r\n  \"totalAmount\": 200000,                      \r\n  \"discountAmount\": 20000,                   \r\n  \"amountPaid\": 180000,                       \r\n  \"status\": \"Phiếu nhận\"                  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1059,7 +1187,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n      \"tong_tien\": 300000\r\n}",
+							"raw": "{\r\n      \"discountAmount\": 300000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1067,7 +1195,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/laundry_orders/67e134de1313f64c95f84b59",
+							"raw": "http://localhost:3000/laundry_orders/67f4bf8318ce0c740d472b94",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1075,7 +1203,7 @@
 							"port": "3000",
 							"path": [
 								"laundry_orders",
-								"67e134de1313f64c95f84b59"
+								"67f4bf8318ce0c740d472b94"
 							]
 						}
 					},
@@ -1928,6 +2056,208 @@
 							"path": [
 								"delivery",
 								"67eea966808922fbe2135256"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "report",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/reports/last_7_days?storeId=67f36be2835f51a95e8780f6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reports",
+								"last_7_days"
+							],
+							"query": [
+								{
+									"key": "storeId",
+									"value": "67f36be2835f51a95e8780f6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "create_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Nguyễn Mai Trường Thịnh\",\r\n  \"email\": \"thinh@gmail.com\",\r\n  \"password\": \"matkhau123\",\r\n  \"role\": \"ADMIN\",\r\n  \"id_store\": \"67e126dc8703ac6efb119c98\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_by_id_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admins/67e4080b944eb542dc71da84",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								"67e4080b944eb542dc71da84"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"name\": \"Trường Thịnh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admins/67e4080b944eb542dc71da84",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								"67e4080b944eb542dc71da84"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admins/67e4080b944eb542dc71da84",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								"67e4080b944eb542dc71da84"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login_admin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"thinh@gmail.com\",\r\n    \"password\": \"matkhau123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/admin/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admin",
+								"login"
 							]
 						}
 					},
