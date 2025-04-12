@@ -1,3 +1,4 @@
+// service.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServiceService } from './service.service';
@@ -11,3 +12,4 @@ import { ServiceRepository } from './service.repository';
   providers: [ServiceService, ServiceRepository],
 })
 export class ServiceModule {}
+

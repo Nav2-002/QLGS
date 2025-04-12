@@ -1,0 +1,111 @@
+.navbar {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+  }
+  
+  /* Logo bên trái */
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-img {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0db9f0;
+    margin: 0;
+  }
+  
+  /* Link menu */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #0db9f0;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links li a:hover {
+    color: #0078cc;
+  }
+  
+  /* Ô tìm kiếm */
+  .navbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 20px;
+  }
+  
+  .navbar-search input {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 180px;
+  }
+  
+  /* Nút có hình ảnh */
+  .navbar-search button {
+    background-color: #0db9f0;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .navbar-search button:hover {
+    background-color: #0078cc;
+  }
+  
+  .search-icon-img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+  
+    .navbar-search {
+      margin-top: 10px;
+      width: 100%;
+    }
+  
+    .navbar-search input {
+      width: 100%;
+      flex: 1;
+    }
+  }
+  

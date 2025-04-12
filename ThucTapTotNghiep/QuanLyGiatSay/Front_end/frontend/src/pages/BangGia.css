@@ -1,0 +1,39 @@
+.price-list-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #cc0000;
+  }
+  
+  .category {
+    margin-bottom: 25px;
+  }
+  
+  .category-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .category-title.red {
+    color: red;
+  }
+  
+  .category-title.green {
+    color: green;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  

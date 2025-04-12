@@ -10,13 +10,26 @@ export class Service {
   _id: Types.ObjectId;
 
   @Prop({ required: true })
-  name: string; // Đổi 'ten_dichvu' thành 'name'
+  name: string;
 
   @Prop({ required: true, type: Number })
-  price: number; // Đổi 'gia' thành 'price'
+  price: number;
 
   @Prop()
-  description: string; // Đổi 'mo_ta' thành 'description'
+  description: string;
+
+  @Prop()
+  image: string;
+
+  // ✅ Các field mới được thêm vào đây:
+  @Prop()
+  type: string;
+
+  @Prop()
+  duration: string;
+
+  @Prop()
+  note: string;
 }
 
 export const ServiceSchema = SchemaFactory.createForClass(Service);
