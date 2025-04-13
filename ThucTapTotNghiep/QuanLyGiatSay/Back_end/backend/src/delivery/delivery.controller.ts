@@ -15,7 +15,7 @@ import {
   import { ParamPaginationDto } from 'src/common/param-pagination.dto';
   import { buildPagination } from 'src/common/common';
   
-  @Controller('delivery')
+  @Controller('deliverys')
   export class DeliveryController {
     constructor(private readonly deliveryService: DeliveryService) {}
   

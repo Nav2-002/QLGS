@@ -4,7 +4,7 @@ import { CreateShelfDto } from './dto/create_shelf.dto';
 import { UpdateShelfDto } from './dto/update_shelf.dto';
 import { Shelf } from './model/shelf.schema';
 
-@Controller('shelf')
+@Controller('shelfs')
 export class ShelfController {
   constructor(private readonly shelfService: ShelfService) {}
 
