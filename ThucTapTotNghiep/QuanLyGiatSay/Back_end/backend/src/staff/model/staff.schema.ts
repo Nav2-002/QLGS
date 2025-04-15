@@ -23,7 +23,7 @@ export class Staff {
   email: string;
 
   @Prop({ type: String, enum: Role, default: Role.STAFF })
-  role: Role;
+  role: Role[];
 
   @Prop({ required: true })
   password: string;

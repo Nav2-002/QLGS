@@ -2,6 +2,20 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:3000/staffs'; // Đảm bảo URL này đúng với backend của bạn
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem('authToken'); // Lấy token từ local storage hoặc nơi bạn lưu trữ
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+export const getMe = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/me`, { headers: getAuthHeader() });
+    return response.data;
+  } catch (error) {
+    console.error('Lỗi khi lấy thông tin người dùng hiện tại:', error);
+    throw error;
+  }
+};
 // Lấy danh sách tất cả nhân viên (cho select hoặc list đơn giản)
 export const getAllStaffsName = async () => {
   try {

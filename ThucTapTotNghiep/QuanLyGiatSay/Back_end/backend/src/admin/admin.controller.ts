@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Put,
+  Request,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -23,13 +24,20 @@ import { buildPagination } from 'src/common/common';
 import { Customer } from 'src/customer/model/customer.schema';
 import { CreateCustomerDto } from 'src/customer/dto/create_customer.dto';
 import { UpdateCustomerDto } from 'src/customer/dto/update_customer.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
 @Controller('admins')
 export class AdminController {
     constructor(private readonly adminService: AdminService) {}
-
+    
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getMe(@Request() req) {
+    const { _id } = req.user;
+    return this.adminService.getOne(_id);
+  }
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all')
@@ -64,7 +72,7 @@ export class AdminController {
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Get(':id')
-  getOne(@Param('id') id: string) {
+  getbyId(@Param('id') id: string) {
     return this.adminService.findById(id);
   }
 

@@ -15,7 +15,7 @@ import { StaffRepository } from 'src/staff/staff.repository';
 import { RegisterCustomerDto, RegisterStaffDto } from './dto/register.dto';
 import { CustomerService } from 'src/customer/customer.service';
 import { StaffService } from 'src/staff/staff.service';
-
+import { Types } from 'mongoose';
 @Injectable()
 export class AuthService {
   constructor(
@@ -88,7 +88,7 @@ export class AuthService {
     if (!staff) {
       throw new NotFoundException('Không tìm thấy nhân viên');
     }
-
+    console.log('staff._id (before toHexString):', staff._id);
     console.log('Email nhập:', email);
     console.log('Mật khẩu nhập:', password);
     console.log('Mật khẩu database:', staff.password);
@@ -102,12 +102,12 @@ export class AuthService {
     }
 
     const body: TokenPayloadDto = {
-      _id: staff._id.toHexString(),
+      _id: staff._id.toHexString(), 
       email: staff.email || '',
       name: staff.name,
-      role: [staff.role],
+      role: staff.role,
     };
-
+    console.log('Payload của Token:', body);
     return this.jwtService.signAsync(body);
   }
   async registerCustomer(registerDto: RegisterCustomerDto) {

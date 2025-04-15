@@ -1050,14 +1050,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/staff/login",
+							"raw": "http://localhost:3000/staffs/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"staff",
+								"staffs",
 								"login"
 							]
 						}
@@ -1091,6 +1091,36 @@
 							"path": [
 								"staff",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_info_staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Y0ZjU5OWVkNTM3ZTg5NjA4NDM1YWQiLCJlbWFpbCI6Im5nb2NAZ21haWwuY29tIiwibmFtZSI6Im5nb2MiLCJyb2xlIjoiU1RBRkYiLCJpYXQiOjE3NDQ3MDMyMjAsImV4cCI6MTc0NDc4OTYyMH0.ZCA1vhosRNvpWFwICfNRXIPW-IOv_sUUhYpWzuYQZKo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/staffs/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"staffs",
+								"me"
 							]
 						}
 					},
@@ -2249,15 +2279,45 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/login",
+							"raw": "http://localhost:3000/admins/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"admin",
+								"admins",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_info_admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Y0YWVjMWNhOTBhMmZkMWQyYTI2OTYiLCJlbWFpbCI6InRoaW5oQGdtYWlsLmNvbSIsIm5hbWUiOiJOZ3V54buFbiBNYWkgVHLGsOG7nW5nIFRo4buLbmgiLCJyb2xlIjpbIkFETUlOIl0sImlhdCI6MTc0NDcwMzY4NSwiZXhwIjoxNzQ0NzkwMDg1fQ.s82vg4vXWRQBPeHlr0UeNOnFsG7oJ8dQkygEK97DFu0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admins/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								"me"
 							]
 						}
 					},

@@ -25,7 +25,12 @@ export class AdminRepository {
   async findOne(id: string) {
     return await this.adminModel.findOne({ _id: id }).lean<Admin>(true);
   }
-
+  async findMe(id: string, select: string) {
+    return await this.adminModel
+      .findById({ _id: id })
+      .select(select)
+      .lean<Admin>(true);
+  }
   async updateOne(id: string, adminOld: Admin, adminNew: UpdateAdminDto) {
     const updateAdmin = await this.adminModel.findOneAndUpdate(
       { _id: id },
@@ -53,6 +58,7 @@ export class AdminRepository {
       .skip((page - 1) * limit)
       .sort({ ten: sort })
       .limit(limit)
+      .select('-password')
       .lean<Admin[]>(true);
   }
 

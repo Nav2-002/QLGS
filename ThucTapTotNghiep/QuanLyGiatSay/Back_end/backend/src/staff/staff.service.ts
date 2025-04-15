@@ -1,6 +1,7 @@
 import {
   Injectable,
   NotFoundException,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateStaffDto } from './dto/create_staff.dto';
@@ -90,7 +91,13 @@ export class StaffService {
     }
     return updatedStaff;
   }
-
+  async getOne(id: string) {
+    const staff = await this.repository.findMe(id, '-password');
+    if (!staff) {
+      throw new UnauthorizedException('Không tìm thấy staff');
+    }
+    return staff;
+  }
   findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
     const newSort = sort != 'asc' ? 'desc' : 'asc';

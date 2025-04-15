@@ -1,6 +1,7 @@
 import {
   Injectable,
   NotFoundException,
+  UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create_admin.dto';
@@ -80,7 +81,13 @@ export class AdminService {
 
     return this.repository.findAll(page, limit, newSort, keyword);
   }
-
+  async getOne(id: string) {
+    const admin = await this.repository.findMe(id, '-password');
+    if (!admin) {
+      throw new UnauthorizedException('Không tìm thấy admin');
+    }
+    return admin;
+  }
   async findAllGetName() {
     return await this.repository.findAllGetName();
   }

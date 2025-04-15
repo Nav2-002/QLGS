@@ -7,7 +7,7 @@ import { RegisterCustomerDto, RegisterStaffDto } from './dto/register.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('admin/login')
+  @Post('admins/login')
   loginUser(@Body() login: LoginDto) {
     return this.authService.validateAdmin(login);
   }
@@ -18,7 +18,7 @@ export class AuthController {
     return this.authService.validateCustomer(login);
   }
 
-  @Post('staff/login')
+  @Post('staffs/login')
   loginStaff(@Body() login: LoginDto) {
     return this.authService.validateStaff(login);
   }
@@ -28,7 +28,7 @@ export class AuthController {
     return this.authService.registerCustomer(registerDto);
   }
 
-  @Post('staff/register')
+  @Post('staffs/register')
   registerStaff(@Body() registerDto: RegisterStaffDto) {
     return this.authService.registerStaff(registerDto);
   }
