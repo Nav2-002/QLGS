@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./TrangChu.css";
 
 // Banner + Process images
@@ -42,6 +42,12 @@ function TrangChu() {
           <button className="cta-button" onClick={handleClick}>
             Đặt dịch vụ ngay
           </button>
+           {/* Thêm nút đăng nhập admin ở đây */}
+           <div className="admin-login-button-container">
+            <Link to="/admins/login" className="admin-login-button">
+              Đăng nhập Admin
+            </Link>
+          </div>
         </div>
       </div>
 
