@@ -9,6 +9,7 @@ import {
   Put,
   Query,
   UseGuards,
+  Request
 } from '@nestjs/common';
 import { CreateStaffDto } from './dto/create_staff.dto';
 import { UpdateStaffDto } from './dto/update_staff.dto';
@@ -16,13 +17,19 @@ import { Staff } from 'src/staff/model/staff.schema';
 import { StaffService } from './staff.service';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 import { buildPagination } from 'src/common/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
 @Controller('staffs')
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
-
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  getMe(@Request() req) {
+    const { _id } = req.user;
+    return this.staffService.getOne(_id);
+  }
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all')
@@ -59,7 +66,7 @@ export class StaffController {
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Get(':id')
-  getOne(@Param('id') id: string) {
+  getbyId(@Param('id') id: string) {
     return this.staffService.findById(id);
   }
 

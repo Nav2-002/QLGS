@@ -25,6 +25,12 @@ export class StaffRepository {
     return await this.model.findOne({ _id: id }).lean<Staff>().exec();
   }
 
+  async findMe(id: string, select: string) {
+    return await this.model
+      .findById({ _id: id })
+      .select(select)
+      .lean<Staff>(true);
+  }
   async updateOne(
     id: string,
     staffOld: Staff,
@@ -60,6 +66,7 @@ export class StaffRepository {
       .sort({ name: sort }) // Sắp xếp theo 'name'
       .limit(limit)
       .lean<Staff[]>()
+      .select('-password')
       .exec();
   }
 
