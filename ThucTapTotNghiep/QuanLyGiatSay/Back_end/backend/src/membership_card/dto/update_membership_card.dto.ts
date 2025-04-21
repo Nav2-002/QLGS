@@ -5,7 +5,6 @@ import { Types } from 'mongoose';
 export class UpdateMembershipCardDto {
   @IsOptional()
   @IsMongoId()
-  @Transform(({ value }) => new Types.ObjectId(value))
   readonly id_khachhang?: string;
 
   @IsOptional()
