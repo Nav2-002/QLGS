@@ -19,7 +19,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nguyễn Văn Ba\",\r\n    \"password\":\"123456\",\r\n    \"phoneNumber\": \"0909123456\",\r\n    \"email\": \"banguyen@gmail.com\",\r\n    \"address\": \"123 Lê Lợi, Q1\",\r\n    \"birth_Day\": \"1995-05-10\",\r\n    \"customer_type\": \"CUSTOMER\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Nguyễn Văn Năm\",\r\n    \"password\":\"123456\",\r\n    \"phoneNumber\": \"0909123456\",\r\n    \"email\": \"namnguyen@gmail.com\",\r\n    \"address\": \"123 Lê Lợi, Q1\",\r\n    \"birth_day\": \"1995-05-10\",\r\n    \"customer_type\": \"CUSTOMER\",\r\n    \"role\": \"CUSTOMER\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,7 +83,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/customers/67e101b4cb5bca76fd102586",
+							"raw": "http://localhost:3000/customers/67f4ed7c213e70a6630dd320",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -91,7 +91,7 @@
 							"port": "3000",
 							"path": [
 								"customers",
-								"67e101b4cb5bca76fd102586"
+								"67f4ed7c213e70a6630dd320"
 							]
 						}
 					},
@@ -231,7 +231,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_khachhang\": \"67e0fa1590b011cb9c7db0da\",\r\n  \"so_the\": \"VT123454\",\r\n  \"ngay_cap\": \"2024-03-01\",\r\n  \"ngay_het_han\": \"2025-03-01\",\r\n  \"diem_tich_luy\": 50,\r\n  \"trangthai\": true\r\n}",
+							"raw": "{\r\n    \"id_customer\": \"6805f2300076a3c70173b51f\",\r\n    \"card_number\": \"VT123455\",\r\n    \"issue_date\": \"2024-03-01T00:00:00.000Z\",\r\n    \"expiry_date\": \"2025-03-01T00:00:00.000Z\",\r\n    \"points\": 50,\r\n    \"status\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -397,7 +397,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/promotions/67e109a303c660c725cb6637",
+							"raw": "http://localhost:3000/promotions/67ed430a6c583c5dafc7a6a4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -405,7 +405,7 @@
 							"port": "3000",
 							"path": [
 								"promotions",
-								"67e109a303c660c725cb6637"
+								"67ed430a6c583c5dafc7a6a4"
 							]
 						}
 					},
@@ -1050,14 +1050,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/staff/login",
+							"raw": "http://localhost:3000/staffs/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"staff",
+								"staffs",
 								"login"
 							]
 						}
@@ -1091,6 +1091,36 @@
 							"path": [
 								"staff",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_info_staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Y0ZjU5OWVkNTM3ZTg5NjA4NDM1YWQiLCJlbWFpbCI6Im5nb2NAZ21haWwuY29tIiwibmFtZSI6Im5nb2MiLCJyb2xlIjoiU1RBRkYiLCJpYXQiOjE3NDQ3MDMyMjAsImV4cCI6MTc0NDc4OTYyMH0.ZCA1vhosRNvpWFwICfNRXIPW-IOv_sUUhYpWzuYQZKo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/staffs/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"staffs",
+								"me"
 							]
 						}
 					},
@@ -1383,7 +1413,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_store\": \"67e6a7fd483c0ebc9f98e109\",\r\n  \"ten\": \"Nhà cung cấp Omo\",\r\n  \"phone\": \"0123456789\",\r\n  \"address\": \"10, NVL, ninh kiều, cần thơ\"\r\n}\r\n",
+							"raw": "{\r\n  \"id_store\": \"67e6a7fd483c0ebc9f98e109\",\r\n  \"name\": \"Nhà cung cấp Omo\",\r\n  \"phone\": \"0123456789\",\r\n  \"address\": \"10, NVL, ninh kiều, cần thơ\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1948,14 +1978,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/delivery",
+							"raw": "http://localhost:3000/deliverys",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"delivery"
+								"deliverys"
 							]
 						}
 					},
@@ -2249,15 +2279,45 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/login",
+							"raw": "http://localhost:3000/admins/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"admin",
+								"admins",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_info_admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2Y0YWVjMWNhOTBhMmZkMWQyYTI2OTYiLCJlbWFpbCI6InRoaW5oQGdtYWlsLmNvbSIsIm5hbWUiOiJOZ3V54buFbiBNYWkgVHLGsOG7nW5nIFRo4buLbmgiLCJyb2xlIjpbIkFETUlOIl0sImlhdCI6MTc0NDcwMzY4NSwiZXhwIjoxNzQ0NzkwMDg1fQ.s82vg4vXWRQBPeHlr0UeNOnFsG7oJ8dQkygEK97DFu0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/admins/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								"me"
 							]
 						}
 					},
