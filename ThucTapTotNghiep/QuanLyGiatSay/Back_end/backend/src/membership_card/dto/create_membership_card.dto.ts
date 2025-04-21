@@ -5,7 +5,6 @@ import { Types } from 'mongoose';
 export class CreateMembershipCardDto {
   @IsMongoId()
   @IsNotEmpty()
-  @Transform(({ value }) => new Types.ObjectId(value))
   readonly id_khachhang: string;
 
   @IsNotEmpty()
