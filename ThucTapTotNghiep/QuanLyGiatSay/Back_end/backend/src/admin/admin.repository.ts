@@ -54,9 +54,9 @@ export class AdminRepository {
     keyword: any,
   ) {
     return await this.adminModel
-      .find(keyword ? { $or: [{ ten: new RegExp(keyword, 'i') }] } : {})
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ ten: sort })
+      .sort({ name: sort })
       .limit(limit)
       .select('-password')
       .lean<Admin[]>(true);
