@@ -58,17 +58,13 @@ export class LaundryOrderRepository {
     page: number,
     limit: number,
     sort: 'asc' | 'desc',
-    keyword?: string,
+    keyword: any,
   ) {
-    const filter = keyword
-      ? { 'details.description': { $regex: keyword, $options: 'i' } } // ví dụ tìm theo ghi chú
-      : {};
-
     return await this.model
-      .find(filter)
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
+      .sort({ name: sort })
       .limit(limit)
-      .sort({ receivedDate: sort === 'asc' ? 1 : -1 }) // đổi trường sort cho hợp lý
       .lean<LaundryOrder[]>(true);
   }
 
