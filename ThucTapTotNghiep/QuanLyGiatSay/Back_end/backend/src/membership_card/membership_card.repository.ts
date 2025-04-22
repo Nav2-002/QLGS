@@ -51,7 +51,7 @@ export class MembershipCardRepository {
     keyword: any,
   ) {
     return await this.model
-      .find(keyword ? { $or: [{ so_the: new RegExp(keyword, 'i') }] } : {})
+      .find(keyword ? { $or: [{ card_number: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
       .sort({ so_the: sort })
       .limit(limit)
