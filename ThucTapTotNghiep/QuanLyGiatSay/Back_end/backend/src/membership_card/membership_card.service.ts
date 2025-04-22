@@ -8,28 +8,27 @@ import { UpdateMembershipCardDto } from './dto/update_membership_card.dto';
 import { MembershipCardRepository } from './membership_card.repository';
 import { checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
-import { CreateStoreDto } from 'src/store/dto/create_store.dto';
 
 @Injectable()
 export class MembershipCardService {
   constructor(private readonly repository: MembershipCardRepository) {}
 
   async createMembershipCard(createMembershipCardDto: CreateMembershipCardDto) {
-    const { id_khachhang, so_the, ngay_cap, ngay_het_han, diem_tich_luy, trangthai } =
+    const { id_customer, card_number, issue_date, expiry_date, points, status } =
       createMembershipCardDto;
 
     try {
-      if (id_khachhang) {
-        checkValisIsObject(id_khachhang, 'id_khachhang');
-        // You might want to validate if the staff exists here, similar to the previous example.
+      if (id_customer) {
+        checkValisIsObject(id_customer, 'id_customer');
+        // You might want to validate if the customer exists here.
       }
       return await this.repository.create({
-        id_khachhang,
-        so_the,
-        ngay_cap,
-        ngay_het_han,
-        diem_tich_luy,
-        trangthai,
+        id_customer,
+        card_number, // Đã sửa
+        issue_date,  // Đã sửa
+        expiry_date, // Đã sửa
+        points,      // Đã sửa
+        status,      // Đã sửa
       });
     } catch (error) {
       throw new UnprocessableEntityException(error.message);
@@ -37,64 +36,58 @@ export class MembershipCardService {
   }
 
   async findById(id: string) {
-    checkValisIsObject(id, 'store id');
-    const store = await this.repository.findOne(id);
-    if (!store) {
-      throw new NotFoundException('không tìm thấy cửa hàng');
+    checkValisIsObject(id, 'membership card id'); // Sửa message cho đúng entity
+    const membershipCard = await this.repository.findOne(id);
+    if (!membershipCard) {
+      throw new NotFoundException('không tìm thấy thẻ thành viên'); // Sửa message cho đúng entity
     }
-
-    return store;
+    return membershipCard;
   }
 
   async updateById(id: string, membershipCardUpdate: UpdateMembershipCardDto) {
-    const { id_khachhang, so_the, ngay_cap, ngay_het_han, diem_tich_luy, trangthai } =
+    const { id_customer, card_number, issue_date, expiry_date, points, status } =
       membershipCardUpdate;
 
-    const store = await this.findById(id);
+    const existingCard = await this.findById(id); // Tìm thẻ hiện tại
 
     try {
-      if (id_khachhang) {
-        checkValisIsObject(id_khachhang, 'id_khachhang');
-        // You might want to validate if the staff exists here, similar to the previous example.
+      if (id_customer) {
+        checkValisIsObject(id_customer, 'id_customer');
+        // You might want to validate if the customer exists here.
       }
 
-      return await this.repository.updateOne(id, store, {
-        id_khachhang,
-        so_the,
-        ngay_cap,
-        ngay_het_han,
-        diem_tich_luy,
-        trangthai,
+      return await this.repository.updateOne(id, existingCard, {
+        id_customer,
+        card_number, // Đã sửa
+        issue_date,  // Đã sửa
+        expiry_date, // Đã sửa
+        points,      // Đã sửa
+        status,      // Đã sửa
       });
     } catch (error) {
-      throw new UnprocessableEntityException('Tên đã tồn tại');
+      throw new UnprocessableEntityException('Lỗi khi cập nhật thẻ thành viên'); // Sửa message
     }
   }
 
   async deleteById(id: string) {
-    const store = await this.findById(id);
-
-    await this.repository.deleteOne(store._id.toHexString());
-
-    return store;
+    const membershipCard = await this.findById(id); // Tìm thẻ để xóa
+    await this.repository.deleteOne(membershipCard._id.toHexString());
+    return membershipCard;
   }
 
   async updateStatusById(id: string, status: boolean) {
-    checkValisIsObject(id, 'store id');
+    checkValisIsObject(id, 'membership card id'); // Sửa message
 
-    const membershipCard = await this.repository.updateStatusById(id, status);
-    if (!membershipCard) {
+    const updatedCard = await this.repository.updateStatusById(id, status);
+    if (!updatedCard) {
       throw new NotFoundException('không tìm thấy id thẻ thành viên');
     }
-
-    return membershipCard;
+    return updatedCard;
   }
 
   findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
-
     const newSort = sort != 'asc' ? 'desc' : 'asc';
-
     return this.repository.findAll(page, limit, newSort, keyword);
   }
 
