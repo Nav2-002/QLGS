@@ -27,9 +27,14 @@ export class ServiceRepository {
     return this.model.findOneAndDelete({ _id: id });
   }
 
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword: string) {
-    return this.model
-      .find(keyword ? { name: new RegExp(keyword, 'i') } : {})
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
+    return await this.model
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
       .sort({ name: sort })
       .limit(limit)
