@@ -9,7 +9,7 @@ export class MembershipCard {
   @Prop({ type: SchemaTypes.ObjectId })
   _id: Types.ObjectId;
   
-  @Prop({ type: Types.ObjectId, ref: 'Customer', required: true })
+  @Prop({ type: SchemaTypes.ObjectId, ref: 'Customer', required: false })
   id_customer: Types.ObjectId;
 
   @Prop({ required: true })
