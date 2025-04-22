@@ -7,7 +7,7 @@ import {
 import { CreatePromotionDto } from './dto/create_promotion.dto';
 import { UpdatePromotionDto } from './dto/update_promotion.dto';
 import { PromotionRepository } from './promotion.repository';
-import { checkValisIsObject } from 'src/common/common';
+import { buildPagination, checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 import { validate } from 'class-validator';
 
@@ -86,13 +86,18 @@ export class PromotionService {
     return promotion;
   }
 
-  findAll(params: ParamPaginationDto) {
+  async findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
-
-    const newSort = sort != 'asc' ? 'desc' : 'asc';
-
-    return this.repository.findAll(page, limit, newSort, keyword);
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const promotions = await this.repository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả promotions để tính total
+    const allPromotions = await this.repository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allPromotions, params, promotions);
   }
+
 
   async findAllGetName() {
     return await this.repository.findAllGetName();
