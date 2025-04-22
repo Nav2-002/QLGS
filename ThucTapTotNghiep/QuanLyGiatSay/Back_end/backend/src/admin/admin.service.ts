@@ -7,7 +7,7 @@ import {
 import { CreateAdminDto } from './dto/create_admin.dto';
 import { UpdateAdminDto } from './dto/update_admin.dto';
 import { AdminRepository } from './admin.repository';
-import { checkValisIsObject } from 'src/common/common';
+import { buildPagination, checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 import { UpdateServiceDto } from 'src/service/dto/update_service.dto';
 import * as bcrypt from 'bcrypt'; 
@@ -74,12 +74,16 @@ export class AdminService {
     return service;
   }
 
-  findAll(params: ParamPaginationDto) {
+  async findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
-
-    const newSort = sort != 'asc' ? 'desc' : 'asc';
-
-    return this.repository.findAll(page, limit, newSort, keyword);
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const admins = await this.repository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả laundry_orders để tính total
+    const allAdmins = await this.repository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allAdmins, params, admins);
   }
   async getOne(id: string) {
     const admin = await this.repository.findMe(id, '-password');
