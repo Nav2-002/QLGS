@@ -7,7 +7,7 @@ import {
 import { CreateServiceDto } from './dto/create_service.dto';
 import { UpdateServiceDto } from './dto/update_service.dto';
 import { ServiceRepository } from './service.repository';
-import { checkValisIsObject } from '../common/common';
+import { buildPagination, checkValisIsObject } from '../common/common';
 import { ParamPaginationDto } from '../common/param-pagination.dto';
 
 @Injectable()
@@ -45,12 +45,15 @@ export class ServiceService {
   }
 
   async findAll(params: ParamPaginationDto) {
-    const page = params.page || 1;
-    const limit = params.limit || 10;
-    const sort: 'asc' | 'desc' = params.sort !== 'asc' ? 'desc' : 'asc';
-    const keyword = params.keyword || '';
-
-    return this.repository.findAll(page, limit, sort, keyword);
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const services = await this.repository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả services để tính total
+    const allServices = await this.repository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allServices, params, services);
   }
 
   async findAllGetName() {
