@@ -37,14 +37,8 @@ export class StoreController {
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
-  async getAll(@Query() params: ParamPaginationDto) {
-    const stores = await this.storeService.findAll(params);
-
-    const rootStores = stores.filter((store) => {
-      return store.id_manager === null;
-    });
-
-    return buildPagination<Store>(stores, params, rootStores);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.storeService.findAll(query);
   }
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
