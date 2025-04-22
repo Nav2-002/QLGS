@@ -39,10 +39,8 @@ export class ServiceController {
   }
 
   @Get()
-  async getAll(@Query() params: ParamPaginationDto) {
-    const services = await this.serviceService.findAll(params);
-    const rootServices = services.filter(service => service.description === null);
-    return buildPagination<Service>(services, params, rootServices);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.serviceService.findAll(query);
   }
 
   @Post()
