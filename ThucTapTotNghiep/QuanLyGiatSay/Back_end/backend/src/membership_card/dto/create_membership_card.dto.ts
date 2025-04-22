@@ -1,24 +1,23 @@
-import { Transform } from 'class-transformer';
 import { IsDateString, IsNotEmpty, IsNumber, IsBoolean, IsMongoId } from 'class-validator';
-import { Types } from 'mongoose';
+
 
 export class CreateMembershipCardDto {
   @IsMongoId()
   @IsNotEmpty()
-  readonly id_khachhang: string;
+  readonly id_customer: string;
 
   @IsNotEmpty()
-  readonly so_the: string;
+  readonly card_number: string; // Đã sửa
 
   @IsDateString()
-  readonly ngay_cap: Date;
+  readonly issue_date: Date; // Đã sửa
 
   @IsDateString()
-  readonly ngay_het_han: Date;
+  readonly expiry_date: Date; // Đã sửa
 
   @IsNumber()
-  readonly diem_tich_luy: number;
+  readonly points: number; // Đã sửa
 
   @IsBoolean()
-  readonly trangthai: boolean;
+  readonly status: boolean; // Đã sửa
 }
