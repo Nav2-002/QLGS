@@ -21,15 +21,8 @@ import {
   
     // ✅ Lấy danh sách hóa đơn có phân trang + tìm kiếm
     @Get()
-    async getAll(@Query() params: ParamPaginationDto) {
-      const invoices = await this.invoiceService.findAll(
-        params.page,
-        params.limit,
-        params.sort as 'asc' | 'desc',
-        params.keyword,
-      );
-  
-      return buildPagination<Invoice>(invoices, params);
+    async getAll(@Query() query: ParamPaginationDto) {
+      return this.invoiceService.findAll(query);
     }
   
     // ✅ Tạo hóa đơn mới
