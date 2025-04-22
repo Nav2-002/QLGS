@@ -4,11 +4,15 @@ import { Model, Types } from 'mongoose';
 import { Shelf } from './model/shelf.schema';
 import { CreateShelfDto } from './dto/create_shelf.dto';
 import { UpdateShelfDto } from './dto/update_shelf.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { ShelfRepository } from './shelf.repository';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class ShelfService {
   constructor(
     @InjectModel(Shelf.name) private readonly shelfModel: Model<Shelf>,
+    readonly repository: ShelfRepository
   ) {}
 
   // Tạo mới Kệ đồ
@@ -30,7 +34,16 @@ export class ShelfService {
   }
 
   // Lấy tất cả kệ đồ
-  async findAll(): Promise<Shelf[]> {
-    return this.shelfModel.find().exec();
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    // Gọi repository.findAll thay vì gọi lại this.findAll
+    const shelfs = await this.repository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả shelfs để tính tổng số (nếu cần)
+    const allShelfs = await this.repository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allShelfs, params, shelfs);
   }
 }
