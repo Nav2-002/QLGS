@@ -21,10 +21,19 @@ export class ShelfRepository {
   }
 
   // Lấy tất cả kệ đồ
-  async findAll(): Promise<ShelfDocument[]> {
-    return this.shelfModel.find().exec();
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
+    return await this.shelfModel
+      .find(keyword ? { $or: [{ location: new RegExp(keyword, 'i') }] } : {})
+      .skip((page - 1) * limit)
+      .sort({ location: sort })
+      .limit(limit)
+      .lean<Shelf[]>(true);
   }
-
   // Lấy kệ đồ theo ID
   async findById(id: string): Promise<ShelfDocument | null> {
     return this.shelfModel.findById(id).exec();
