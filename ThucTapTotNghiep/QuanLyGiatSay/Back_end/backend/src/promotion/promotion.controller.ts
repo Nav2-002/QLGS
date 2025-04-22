@@ -12,6 +12,7 @@ import {
 import { PromotionService } from './promotion.service'; 
 import { CreatePromotionDto } from './dto/create_promotion.dto'; 
 import { UpdatePromotionDto } from './dto/update_promotion.dto'; 
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 
 @Controller('promotions')
 export class PromotionController {
@@ -27,9 +28,10 @@ export class PromotionController {
   }
 
   @Get()
-  async getAll() {
-    return this.promotionService.findAllGetName();
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.promotionService.findAll(query);
   }
+  
 
   @Get(':id')
   async getById(@Param('id') id: string) {
