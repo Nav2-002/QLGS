@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { SupplierRepository } from './supplier.repository';
 import { CreateSupplierDto } from './dto/create_supplier.dto';
 import { UpdateSupplierDto } from './dto/update_supplier.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class SupplierService {
@@ -46,7 +48,15 @@ export class SupplierService {
   }
 
   // Lấy danh sách có phân trang và tìm kiếm
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
-    return await this.supplierRepository.findAll(page, limit, sort, keyword);
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const suppliers = await this.supplierRepository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả suppliers để tính total
+    const allSuppliers = await this.supplierRepository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allSuppliers, params, suppliers);
   }
 }
