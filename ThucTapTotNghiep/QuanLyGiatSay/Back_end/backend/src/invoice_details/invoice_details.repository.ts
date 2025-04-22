@@ -28,14 +28,18 @@ export class InvoiceDetailRepository {
     await this.model.findByIdAndDelete(id);
   }
 
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string): Promise<InvoiceDetail[]> {
-    const filter = keyword ? { ghichu: { $regex: keyword, $options: 'i' } } : {};
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
     return await this.model
-      .find(filter)
+      .find(keyword ? { $or: [{ note: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
+      .sort({ note: sort })
       .limit(limit)
-      .sort({ createdAt: sort === 'asc' ? 1 : -1 })
-      .lean();
+      .lean<InvoiceDetail[]>(true);
   }
 
   async findAllByInvoiceId(id_invoice: string): Promise<InvoiceDetail[]> {
