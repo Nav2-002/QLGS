@@ -19,7 +19,7 @@ export class CreateCustomerDto {
 
 
   @IsDateString()
-  readonly birth_date?: Date;
+  readonly birth_day?: Date;
 
   @IsString()
   readonly customer_type:  string;
