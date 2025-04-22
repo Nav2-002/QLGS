@@ -23,7 +23,7 @@ export class UpdateCustomerDto {
 
   @IsOptional()
   @IsDateString()
-  readonly birth_date?: Date;
+  readonly birth_day?: Date;
 
   @IsOptional()
   @IsString()
