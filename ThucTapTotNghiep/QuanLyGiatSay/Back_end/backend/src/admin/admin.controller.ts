@@ -48,15 +48,10 @@ export class AdminController {
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
-  async getAll(@Query() params: ParamPaginationDto) {
-    const admins = await this.adminService.findAll(params);
-
-    const rootAdmins = admins.filter((admin) => {
-      return admin.role === null;
-    });
-
-    return buildPagination<Admin>(admins, params, rootAdmins);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.adminService.findAll(query);
   }
+  
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN)
