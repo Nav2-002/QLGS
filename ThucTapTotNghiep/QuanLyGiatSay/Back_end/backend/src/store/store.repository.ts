@@ -51,9 +51,9 @@ export class StoreRepository {
     keyword: any,
   ) {
     return await this.model
-      .find(keyword ? { $or: [{ ten_cuahang: new RegExp(keyword, 'i') }] } : {})
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
-      .sort({ ten_cuahang: sort })
+      .sort({ name: sort })
       .limit(limit)
       .lean<Store[]>(true);
   }
