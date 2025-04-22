@@ -6,7 +6,7 @@ import {
 import { CreateStoreDto } from './dto/create_store.dto';
 import { UpdateStoreDto } from './dto/update_store.dto';
 import { StoreRepository } from './store.repository';
-import { checkValisIsObject } from 'src/common/common';
+import { buildPagination, checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 
 @Injectable()
@@ -87,12 +87,16 @@ export class StoreService {
     return store;
   }
 
-  findAll(params: ParamPaginationDto) {
+  async findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
-
-    const newSort = sort != 'asc' ? 'desc' : 'asc';
-
-    return this.repository.findAll(page, limit, newSort, keyword);
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const stores = await this.repository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả stores để tính total
+    const allStores = await this.repository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allStores, params, stores);
   }
 
   async findAllGetName() {
