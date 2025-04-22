@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { GoodsRepository } from './goods.repository';
 import { CreateGoodsDto } from './dto/create_goods.dto';
 import { UpdateGoodsDto } from './dto/update_goods.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class GoodsService {
@@ -60,13 +62,16 @@ export class GoodsService {
   }
 
   // Lấy danh sách có phân trang và tìm kiếm
-  async findAll(
-    page: number,
-    limit: number,
-    sort: 'asc' | 'desc',
-    keyword?: string,
-  ) {
-    return await this.goodsRepository.findAll(page, limit, sort, keyword);
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const goods = await this.goodsRepository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả promotions để tính total
+    const allGoods = await this.goodsRepository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allGoods, params, goods);
   }
 
   // Lấy toàn bộ danh sách (chỉ tên)
