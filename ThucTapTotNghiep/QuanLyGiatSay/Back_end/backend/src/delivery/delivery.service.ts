@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { DeliveryRepository } from './delivery.repository';
 import { UpdateDeliveryDto } from './dto/create_delivery.dto';
 import { Delivery } from './model/delivery.schema';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class DeliveryService {
@@ -23,8 +25,16 @@ export class DeliveryService {
   }
 
   // Tìm tất cả giao hàng
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string): Promise<Delivery[]> {
-    return this.deliveryRepository.findAll(page, limit, sort, keyword);
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const delivery = await this.deliveryRepository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả delivery để tính total
+    const allDelivery = await this.deliveryRepository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allDelivery, params, delivery);
   }
 
   // Xóa giao hàng theo ID
