@@ -5,24 +5,24 @@ import { Types } from 'mongoose';
 export class UpdateMembershipCardDto {
   @IsOptional()
   @IsMongoId()
-  readonly id_khachhang?: string;
+  readonly id_customer?: string;
 
   @IsOptional()
-  readonly so_the?: string;
-
-  @IsOptional()
-  @IsDateString()
-  readonly ngay_cap?: Date;
+  readonly card_number?: string; // Đã sửa
 
   @IsOptional()
   @IsDateString()
-  readonly ngay_het_han?: Date;
+  readonly issue_date?: Date; // Đã sửa
+
+  @IsOptional()
+  @IsDateString()
+  readonly expiry_date?: Date; // Đã sửa
 
   @IsOptional()
   @IsNumber()
-  readonly diem_tich_luy?: number;
+  readonly points?: number; // Đã sửa
 
   @IsOptional()
   @IsBoolean()
-  readonly trangthai?: boolean;
+  readonly status?: boolean; // Đã sửa
 }
