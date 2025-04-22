@@ -2,14 +2,15 @@ import { Controller, Get, Post, Patch, Delete, Param, Query, Body } from '@nestj
 import { InvoiceDetailService } from './invoice_details.service';
 import { CreateInvoiceDetailDto } from './dto/create_invoice_details.dto';
 import { UpdateInvoiceDetailDto } from './dto/update_invoice_details.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 
 @Controller('invoice-details')
 export class InvoiceDetailController {
   constructor(private readonly service: InvoiceDetailService) {}
 
   @Get()
-  async getAll(@Query('page') page = 1, @Query('limit') limit = 10, @Query('sort') sort: 'asc' | 'desc' = 'desc', @Query('keyword') keyword?: string) {
-    return this.service.findAll(page, limit, sort, keyword);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.service.findAll(query);
   }
 
   @Get(':id')
