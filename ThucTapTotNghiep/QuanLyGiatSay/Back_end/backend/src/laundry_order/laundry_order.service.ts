@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { LaundryOrderRepository } from './laundry_order.repository';
 import { CreateLaundryOrderDto } from './dto/create_laundry_order.dto';
 import { UpdateLaundryOrderDto } from './dto/update_laundry_order.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class LaundryOrderService {
@@ -47,13 +49,16 @@ export class LaundryOrderService {
   }
 
   // Lấy danh sách đơn hàng (phân trang, tìm kiếm)
-  async findAll(
-    page: number,
-    limit: number,
-    sort: 'asc' | 'desc',
-    keyword?: string,
-  ) {
-    return this.laundryOrderRepository.findAll(page, limit, sort, keyword);
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const laundry_orders = await this.laundryOrderRepository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả laundry_orders để tính total
+    const allLaundry_orders = await this.laundryOrderRepository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allLaundry_orders, params, laundry_orders);
   }
 
   // Lấy toàn bộ danh sách tên đơn hàng (hoặc trường cần thiết)
