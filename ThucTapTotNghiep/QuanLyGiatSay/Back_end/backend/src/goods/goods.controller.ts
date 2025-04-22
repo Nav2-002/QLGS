@@ -38,14 +38,8 @@ export class GoodsController {
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
-  async getAll(@Query() params: ParamPaginationDto) {
-    const goods = await this.goodsService.findAll(params.page, params.limit, params.sort as 'asc' | 'desc', params.keyword);
-
-    const rootGoods = goods.filter((goods) => {
-      return goods.id_store === null;
-    });
-
-    return buildPagination<Goods>(goods, params, rootGoods);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.goodsService.findAll(query);
   }
   // Tạo 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
