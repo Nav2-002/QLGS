@@ -40,11 +40,8 @@ export class CustomerController {
   async getAll(@Query() params: ParamPaginationDto) {
     const customers = await this.customerService.findAll(params);
 
-    const rootCustomers = customers.filter((customer) => {
-      return customer.customer_type === null;
-    });
+    return buildPagination<Customer>(customers, params, customers);
 
-    return buildPagination<Customer>(customers, params, rootCustomers);
   }
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
