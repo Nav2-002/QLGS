@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Patch, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Body, Query } from '@nestjs/common';
 import { ShelfService } from './shelf.service';
 import { CreateShelfDto } from './dto/create_shelf.dto';
 import { UpdateShelfDto } from './dto/update_shelf.dto';
 import { Shelf } from './model/shelf.schema';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 
 @Controller('shelfs')
 export class ShelfController {
@@ -10,8 +11,8 @@ export class ShelfController {
 
   // Lấy tất cả kệ đồ
   @Get()
-  async getAll() {
-    return this.shelfService.findAll();
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.shelfService.findAll(query);
   }
 
   // Lấy thông tin kệ đồ theo ID
