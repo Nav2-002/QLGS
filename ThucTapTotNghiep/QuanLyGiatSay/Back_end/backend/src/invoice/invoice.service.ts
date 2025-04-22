@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InvoiceRepository } from './invoice.repository';
 import { CreateInvoiceDto } from './dto/create_invoice.dto';
 import { UpdateInvoiceDto } from './dto/update_invoice.dto';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
 
 @Injectable()
 export class InvoiceService {
@@ -46,7 +48,15 @@ export class InvoiceService {
   }
 
   // ✅ Lấy danh sách hóa đơn có phân trang và tìm kiếm
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
-    return this.invoiceRepository.findAll(page, limit, sort, keyword);
+  async findAll(params: ParamPaginationDto) {
+    const { page, limit, sort, keyword } = params;
+    const newSort = sort !== 'asc' ? 'desc' : 'asc';
+  
+    const invoices = await this.invoiceRepository.findAll(page, limit, newSort, keyword);
+  
+    // Lấy tất cả laundry_orders để tính total
+    const allInvoices = await this.invoiceRepository.findAll(1, 0, newSort, keyword);
+  
+    return buildPagination(allInvoices, params, invoices);
   }
 }
