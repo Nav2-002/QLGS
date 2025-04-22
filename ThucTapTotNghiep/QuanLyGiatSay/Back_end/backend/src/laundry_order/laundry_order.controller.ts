@@ -27,18 +27,10 @@ export class LaundryOrderController {
 
   // ✅ Lấy danh sách có phân trang + tìm kiếm
   @Get()
-  async getAll(@Query() params: ParamPaginationDto) {
-    const laundryOrders = await this.laundryOrderService.findAll(
-      params.page,
-      params.limit,
-      params.sort as 'asc' | 'desc',
-      params.keyword,
-    );
-
-    const rootLaundryOrder = laundryOrders.filter((order) => order.id_store === null);
-
-    return buildPagination<LaundryOrder>(laundryOrders, params, rootLaundryOrder);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.laundryOrderService.findAll(query);
   }
+  
 
   // ✅ Tạo đơn hàng mới
   @Post()
