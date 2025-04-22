@@ -19,16 +19,9 @@ import {
   export class DeliveryController {
     constructor(private readonly deliveryService: DeliveryService) {}
   
-    @Get('')
-    async getAll(@Query() params: ParamPaginationDto) {
-      const deliveries = await this.deliveryService.findAll(
-        params.page,
-        params.limit,
-        params.sort as 'asc' | 'desc',
-        params.keyword
-      );
-  
-      return buildPagination<Delivery>(deliveries, params);
+    @Get()
+    async getAll(@Query() query: ParamPaginationDto) {
+      return this.deliveryService.findAll(query);
     }
   
     @Post('')
