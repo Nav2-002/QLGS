@@ -40,11 +40,7 @@ export class MembershipCardController {
   async getAll(@Query() params: ParamPaginationDto) {
     const membershipCards = await this.membershipCardService.findAll(params);
 
-      const rootMembershipCards = membershipCards.filter((membershipCard) => {
-      return membershipCard.id_customer === null;
-    });
-
-    return buildPagination<MembershipCard>(membershipCards, params, rootMembershipCards);
+    return buildPagination<MembershipCard>(membershipCards, params, membershipCards);
   }
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
