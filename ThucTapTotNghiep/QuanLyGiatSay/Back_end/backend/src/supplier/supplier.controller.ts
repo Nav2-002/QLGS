@@ -11,6 +11,7 @@ import {
 import { CreateSupplierDto } from './dto/create_supplier.dto';
 import { UpdateSupplierDto } from './dto/update_supplier.dto';
 import { SupplierService } from './supplier.service';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 
 @Controller('suppliers')
 export class SupplierController {
@@ -18,13 +19,8 @@ export class SupplierController {
 
   // Lấy danh sách nhà cung cấp
   @Get()
-  async getAll(
-    @Query('page') page: number,
-    @Query('limit') limit: number,
-    @Query('sort') sort: 'asc' | 'desc',
-    @Query('keyword') keyword?: string,
-  ) {
-    return await this.supplierService.findAll(page, limit, sort, keyword);
+  async getAll(@Query() query: ParamPaginationDto) {
+    return this.supplierService.findAll(query);
   }
 
   // Tạo nhà cung cấp
