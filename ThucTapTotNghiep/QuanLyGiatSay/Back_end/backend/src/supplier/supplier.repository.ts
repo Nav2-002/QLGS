@@ -40,16 +40,17 @@ export class SupplierRepository {
     return await this.model.findOneAndDelete({ _id: id });
   }
 
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
-    const filter = keyword
-      ? { name: { $regex: keyword, $options: 'i' } }
-      : {};
-
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
     return await this.model
-      .find(filter)
+      .find(keyword ? { $or: [{ name: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
+      .sort({ name: sort })
       .limit(limit)
-      .sort({ name: sort === 'asc' ? 1 : -1 })
       .lean<Supplier[]>(true);
   }
 }
