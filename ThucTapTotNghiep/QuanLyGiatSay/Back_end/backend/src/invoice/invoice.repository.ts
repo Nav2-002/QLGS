@@ -51,16 +51,17 @@ export class InvoiceRepository {
   }
 
   // ✅ Lấy danh sách hóa đơn có phân trang + tìm kiếm
-  async findAll(page: number, limit: number, sort: 'asc' | 'desc', keyword?: string) {
-    const filter = keyword
-      ? { note: { $regex: keyword, $options: 'i' } } // Tìm theo ghi chú
-      : {};
-
+  async findAll(
+    page: number,
+    limit: number,
+    sort: 'asc' | 'desc',
+    keyword: any,
+  ) {
     return await this.model
-      .find(filter)
+      .find(keyword ? { $or: [{ date: new RegExp(keyword, 'i') }] } : {})
       .skip((page - 1) * limit)
+      .sort({ date: sort })
       .limit(limit)
-      .sort({ date: sort === 'asc' ? 1 : -1 })
       .lean<Invoice[]>(true);
   }
   // ✅ Lấy danh sách hóa đơn trong một khoảng thời gian và theo cửa hàng
