@@ -21,7 +21,7 @@ export class CustomerService {
       phoneNumber,
       email,
       address,
-      birth_date,
+      birth_day,
       customer_type,
       password,
       role,
@@ -36,7 +36,7 @@ export class CustomerService {
         phoneNumber,
         email,
         address,
-        birth_date,
+        birth_day,
         password: hashedPassword, // Lưu mật khẩu đã băm
         customer_type,
         role,
@@ -62,7 +62,7 @@ export class CustomerService {
       phoneNumber,
       email,
       address,
-      birth_date,
+      birth_day,
       customer_type,
       password,
       role,
@@ -82,8 +82,9 @@ export class CustomerService {
         phoneNumber,
         email,
         address,
-        birth_date,
-        password: hashedPassword !== undefined ? hashedPassword : customer.password, // Lưu mật khẩu đã băm (nếu có thay đổi)
+        birth_day,
+        password:
+          hashedPassword !== undefined ? hashedPassword : customer.password, // Lưu mật khẩu đã băm (nếu có thay đổi)
         customer_type,
         role,
       });
