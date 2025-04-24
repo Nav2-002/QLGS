@@ -30,15 +30,25 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 // @Roles(Role.ADMIN, Role.USER)
 @Controller('admins') // Controller quản lý Admin
 export class AdminController {
+<<<<<<< HEAD
   constructor(private readonly adminService: AdminService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('me') // Lấy thông tin Admin hiện tại
+=======
+    constructor(private readonly adminService: AdminService) {}
+    
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   getMe(@Request() req) {
     const { _id } = req.user;
     return this.adminService.getOne(_id);
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all') // Lấy danh sách tên tất cả Admin
@@ -67,7 +77,11 @@ export class AdminController {
 
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
+<<<<<<< HEAD
   @Get(':id') // Lấy thông tin Admin theo ID
+=======
+  @Get(':id')
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   getbyId(@Param('id') id: string) {
     return this.adminService.findById(id);
   }

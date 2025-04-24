@@ -11,6 +11,7 @@ import {
   UseGuards,
   Request
 } from '@nestjs/common';
+<<<<<<< HEAD
 import { CreateStaffDto } from './dto/create_staff.dto';    // DTO tạo mới nhân viên
 import { UpdateStaffDto } from './dto/update_staff.dto';    // DTO cập nhật nhân viên
 import { Staff } from 'src/staff/model/staff.schema';      // Model của nhân viên
@@ -18,29 +19,44 @@ import { StaffService } from './staff.service';        // Service xử lý logic
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';  // DTO phân trang
 import { buildPagination } from 'src/common/common';          // Hàm tiện ích phân trang
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';    // Guard xác thực JWT
+=======
+import { CreateStaffDto } from './dto/create_staff.dto';
+import { UpdateStaffDto } from './dto/update_staff.dto';
+import { Staff } from 'src/staff/model/staff.schema';
+import { StaffService } from './staff.service';
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';
+import { buildPagination } from 'src/common/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
 @Controller('staffs')
 export class StaffController {
   constructor(private readonly staffService: StaffService) {}
+<<<<<<< HEAD
 
   /**
    * Lấy thông tin của nhân viên đang đăng nhập.
    * @param req Request object chứa thông tin user từ JWT.
    * @returns Thông tin của nhân viên đang đăng nhập.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   @UseGuards(JwtAuthGuard)
   @Get('me')
   getMe(@Request() req) {
     const { _id } = req.user;
     return this.staffService.getOne(_id);
   }
+<<<<<<< HEAD
 
   /**
    * Lấy danh sách tất cả nhân viên (chỉ lấy tên).
    * @returns Danh sách tên của tất cả nhân viên.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all')

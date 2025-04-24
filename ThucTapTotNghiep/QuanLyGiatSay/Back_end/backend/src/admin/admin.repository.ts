@@ -34,20 +34,26 @@ export class AdminRepository {
   async findOne(id: string) {
     return await this.adminModel.findOne({ _id: id }).lean<Admin>(true);
   }
+<<<<<<< HEAD
 
   /**
    * Tìm thông tin Admin đang đăng nhập (theo ID) và chọn các trường chỉ định.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async findMe(id: string, select: string) {
     return await this.adminModel
       .findById({ _id: id })
       .select(select)
       .lean<Admin>(true);
   }
+<<<<<<< HEAD
 
   /**
    * Cập nhật thông tin Admin theo ID.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async updateOne(id: string, adminOld: Admin, adminNew: UpdateAdminDto) {
     const updateAdmin = await this.adminModel.findOneAndUpdate(
       { _id: id },

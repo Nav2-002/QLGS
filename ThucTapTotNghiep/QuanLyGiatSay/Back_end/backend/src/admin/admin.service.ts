@@ -101,10 +101,13 @@ export class AdminService {
 
     return buildPagination(allAdmins, params, admins);
   }
+<<<<<<< HEAD
 
   /**
    * Lấy thông tin một Admin (không lấy password).
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async getOne(id: string) {
     const admin = await this.repository.findMe(id, '-password');
     if (!admin) {
@@ -112,10 +115,13 @@ export class AdminService {
     }
     return admin;
   }
+<<<<<<< HEAD
 
   /**
    * Lấy danh sách tên tất cả Admin.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async findAllGetName() {
     return await this.repository.findAllGetName();
   }

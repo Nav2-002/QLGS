@@ -40,18 +40,22 @@ export class StaffRepository {
     return await this.model.findOne({ _id: id }).lean<Staff>().exec();
   }
 
+<<<<<<< HEAD
   /**
     * Tìm nhân viên theo ID và chỉ lấy các trường được chỉ định.
     * @param id ID của nhân viên cần tìm.
     * @param select Chuỗi các trường cần lấy, cách nhau bởi dấu cách (ví dụ: 'name email role').
     * @returns Nhân viên nếu tìm thấy, null nếu không tìm thấy.
     */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async findMe(id: string, select: string) {
     return await this.model
       .findById({ _id: id })
       .select(select)
       .lean<Staff>(true);
   }
+<<<<<<< HEAD
 
   /**
    * Cập nhật thông tin nhân viên theo ID.
@@ -60,6 +64,8 @@ export class StaffRepository {
    * @param staffNew Dữ liệu mới để cập nhật nhân viên.
    * @returns Nhân viên đã được cập nhật, null nếu không tìm thấy.
    */
+=======
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async updateOne(
     id: string,
     staffOld: Staff,
@@ -114,7 +120,11 @@ export class StaffRepository {
       .sort({ name: sort }) // Sắp xếp theo 'name'
       .limit(limit)
       .lean<Staff[]>()
+<<<<<<< HEAD
       .select('-password') // Loại bỏ trường 'password'
+=======
+      .select('-password')
+>>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
       .exec();
   }
 
