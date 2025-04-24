@@ -15,33 +15,42 @@ import {
 // import { Role } from 'src/auth/decorator/role.enum';
 // import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 // import { RoleAuthGuard } from 'src/auth/guards/role-jwt.guard';
-import { CreateGoodsDto } from './dto/create_goods.dto'; 
-import { UpdateGoodsDto } from './dto/update_goods.dto'; 
+import { CreateGoodsDto } from './dto/create_goods.dto';
+import { UpdateGoodsDto } from './dto/update_goods.dto';
 import { Goods } from 'src/goods/model/goods.schema';
-import { GoodsService } from './goods.service'; 
+import { GoodsService } from './goods.service';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 import { buildPagination } from 'src/common/common';
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
-@Controller('goods') 
+@Controller('goods')
 export class GoodsController {
   constructor(private readonly goodsService: GoodsService) {}
-  //Lấy tất cả 
+
+  /**
+   * Lấy danh sách tất cả hàng hóa (có thể chỉ lấy tên).
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('')
   getAllGetName() {
     return this.goodsService.findAllGetName();
   }
-  //Lấy tất cả 
+
+  /**
+   * Lấy danh sách hàng hóa có phân trang.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
   async getAll(@Query() query: ParamPaginationDto) {
     return this.goodsService.findAll(query);
   }
-  // Tạo 
+
+  /**
+   * Tạo mới hàng hóa.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN)
   @Post('')
@@ -52,15 +61,20 @@ export class GoodsController {
       goods: newGoods,
     };
   }
-  // Lấy theo id
+
+  /**
+   * Lấy thông tin hàng hóa theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
-  //   @Roles(Role.ADMIN)
+  //  @Roles(Role.ADMIN)
   @Get(':id')
   getOne(@Param('id') id: string) {
     return this.goodsService.findOne(id);
   }
 
-  // Cập nhật 
+  /**
+   * Cập nhật thông tin hàng hóa theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Patch(':id')
@@ -72,7 +86,9 @@ export class GoodsController {
     };
   }
 
-  // Xóa hàng hóa
+  /**
+   * Xóa hàng hóa theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Delete(':id')
@@ -84,7 +100,9 @@ export class GoodsController {
     };
   }
 
-  // Cập nhật trạng thái hàng hóa
+  /**
+   * Cập nhật trạng thái hàng hóa theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Patch(':id')
@@ -99,3 +117,4 @@ export class GoodsController {
     };
   }
 }
+
