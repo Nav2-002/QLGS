@@ -15,7 +15,6 @@ export class UpdateAdminDto {
   @IsOptional()
   role?: string;
 
-  
   @IsOptional()
   id_store?: string;
 }
