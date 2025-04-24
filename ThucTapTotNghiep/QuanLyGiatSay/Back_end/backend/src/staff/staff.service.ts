@@ -123,16 +123,12 @@ export class StaffService {
     }
     return updatedStaff;
   }
-<<<<<<< HEAD
-
   /**
     * Lấy thông tin nhân viên theo ID, không bao gồm mật khẩu.
     * @param id ID của nhân viên cần lấy.
     * @returns Nhân viên nếu tìm thấy.
     * @throws UnauthorizedException nếu không tìm thấy nhân viên.
     */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async getOne(id: string) {
     const staff = await this.repository.findMe(id, '-password');
     if (!staff) {
@@ -140,15 +136,11 @@ export class StaffService {
     }
     return staff;
   }
-<<<<<<< HEAD
-
   /**
    * Lấy danh sách nhân viên có phân trang và tìm kiếm.
    * @param params Các tham số phân trang và tìm kiếm.
    * @returns Danh sách nhân viên đã phân trang.
    */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
     const newSort = sort != 'asc' ? 'desc' : 'asc';

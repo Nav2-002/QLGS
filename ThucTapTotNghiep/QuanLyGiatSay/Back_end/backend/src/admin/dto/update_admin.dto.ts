@@ -2,7 +2,7 @@ import { IsEmail, IsOptional, MinLength } from 'class-validator';
 
 export class UpdateAdminDto {
   @IsOptional()
-  ten?: string;
+  name?: string;
 
   @IsOptional()
   @IsEmail({}, { message: 'Email không hợp lệ' })
@@ -13,8 +13,9 @@ export class UpdateAdminDto {
   password?: string;
 
   @IsOptional()
-  vaitro?: string;
+  role?: string;
 
+  
   @IsOptional()
-  id_cuahang?: string;
+  id_store?: string;
 }

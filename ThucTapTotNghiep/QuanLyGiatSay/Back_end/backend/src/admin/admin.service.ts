@@ -9,17 +9,13 @@ import { UpdateAdminDto } from './dto/update_admin.dto';
 import { AdminRepository } from './admin.repository';
 import { buildPagination, checkValisIsObject } from 'src/common/common';
 import { ParamPaginationDto } from 'src/common/param-pagination.dto';
-import { UpdateServiceDto } from 'src/service/dto/update_service.dto'; // Import này có vẻ không dùng, nên có thể xóa
-import * as bcrypt from 'bcrypt';  // Thư viện để băm mật khẩu
+import { UpdateServiceDto } from 'src/service/dto/update_service.dto';
+import * as bcrypt from 'bcrypt'; 
 
 @Injectable()
 export class AdminService {
   constructor(private readonly repository: AdminRepository) {}
 
-  /**
-   * Tạo mới Admin.
-   * Băm mật khẩu trước khi lưu.
-   */
   async createAdmin(createAdminDto: CreateAdminDto) {
     const { name, email, password, role } = createAdminDto;
     const saltRounds = 10; // Số lượng salt rounds (nên đặt là 10 trở lên)
@@ -37,25 +33,18 @@ export class AdminService {
     }
   }
 
-  /**
-   * Tìm Admin theo ID.
-   * Kiểm tra ID có hợp lệ và Admin có tồn tại.
-   */
   async findById(id: string) {
     checkValisIsObject(id, 'admin id');
     const admin = await this.repository.findOne(id);
     if (!admin) {
       throw new NotFoundException('không tìm thấy admin');
     }
+
     return admin;
   }
 
-  /**
-   * Cập nhật thông tin Admin theo ID.
-   * Băm mật khẩu mới nếu được cung cấp.
-   */
   async updateById(id: string, adminUpdate: UpdateAdminDto) {
-    const { ten, email, password, vaitro } = adminUpdate;
+    const { name, email, password, role } = adminUpdate;
     let hashedPassword: string | undefined = undefined; // Khai báo rõ ràng kiểu
 
     if (password) {
@@ -63,51 +52,39 @@ export class AdminService {
       hashedPassword = await bcrypt.hash(password, saltRounds);
     }
 
-    const service = await this.findById(id); //Dòng này đang lấy service theo id, có thể gây nhầm lẫn. Nên đổi tên biến
+    const service = await this.findById(id);
 
     try {
-      return await this.repository.updateOne(id, service, { //và truyền admin vào repo
-        ten,
+      return await this.repository.updateOne(id, service, {
+        name,
         email,
-        password: hashedPassword !== undefined ? hashedPassword : service.password, //giữ lại pass cũ nếu không có pass mới
-        vaitro,
+        password: hashedPassword !== undefined ? hashedPassword : service.password,
+        role,
       });
     } catch (error) {
       throw new UnprocessableEntityException('Tên đã tồn tại');
     }
   }
-
-  /**
-   * Xóa Admin theo ID.
-   */
+  
   async deleteById(id: string) {
-    const service = await this.findById(id); // Tương tự, đổi tên biến này.
-    await this.repository.deleteOne(service._id.toHexString()); //và truyền admin._id
+    const service = await this.findById(id);
 
-    return service; //và trả về admin
+    await this.repository.deleteOne(service._id.toHexString());
+
+    return service;
   }
 
-  /**
-   * Lấy danh sách Admin có phân trang, sắp xếp và tìm kiếm.
-   */
   async findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
     const newSort = sort !== 'asc' ? 'desc' : 'asc';
-
+  
     const admins = await this.repository.findAll(page, limit, newSort, keyword);
-
-    // Lấy tất cả laundry_orders để tính total  ->  Đổi thành lấy tất cả admins
+  
+    // Lấy tất cả laundry_orders để tính total
     const allAdmins = await this.repository.findAll(1, 0, newSort, keyword);
-
+  
     return buildPagination(allAdmins, params, admins);
   }
-<<<<<<< HEAD
-
-  /**
-   * Lấy thông tin một Admin (không lấy password).
-   */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async getOne(id: string) {
     const admin = await this.repository.findMe(id, '-password');
     if (!admin) {
@@ -115,13 +92,6 @@ export class AdminService {
     }
     return admin;
   }
-<<<<<<< HEAD
-
-  /**
-   * Lấy danh sách tên tất cả Admin.
-   */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async findAllGetName() {
     return await this.repository.findAllGetName();
   }

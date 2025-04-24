@@ -7,7 +7,9 @@ import { Staff, StaffDocument } from 'src/staff/model/staff.schema';
 
 @Injectable()
 export class StaffRepository {
-  constructor(@InjectModel(Staff.name) private readonly model: Model<StaffDocument>) {}
+  constructor(
+    @InjectModel(Staff.name) private readonly model: Model<StaffDocument>,
+  ) {}
 
   /**
    * Tìm nhân viên theo email.
@@ -40,22 +42,19 @@ export class StaffRepository {
     return await this.model.findOne({ _id: id }).lean<Staff>().exec();
   }
 
-<<<<<<< HEAD
   /**
-    * Tìm nhân viên theo ID và chỉ lấy các trường được chỉ định.
-    * @param id ID của nhân viên cần tìm.
-    * @param select Chuỗi các trường cần lấy, cách nhau bởi dấu cách (ví dụ: 'name email role').
-    * @returns Nhân viên nếu tìm thấy, null nếu không tìm thấy.
-    */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
+   * Tìm nhân viên theo ID và chỉ lấy các trường được chỉ định.
+   * @param id ID của nhân viên cần tìm.
+   * @param select Chuỗi các trường cần lấy, cách nhau bởi dấu cách (ví dụ: 'name email role').
+   * @returns Nhân viên nếu tìm thấy, null nếu không tìm thấy.
+   */
+
   async findMe(id: string, select: string) {
     return await this.model
       .findById({ _id: id })
       .select(select)
       .lean<Staff>(true);
   }
-<<<<<<< HEAD
 
   /**
    * Cập nhật thông tin nhân viên theo ID.
@@ -64,18 +63,15 @@ export class StaffRepository {
    * @param staffNew Dữ liệu mới để cập nhật nhân viên.
    * @returns Nhân viên đã được cập nhật, null nếu không tìm thấy.
    */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
+
   async updateOne(
     id: string,
     staffOld: Staff,
     staffNew: UpdateStaffDto,
   ): Promise<StaffDocument | null> {
-    const updateStaff = await this.model.findOneAndUpdate(
-      { _id: id },
-      staffNew,
-      { new: true },
-    ).exec();
+    const updateStaff = await this.model
+      .findOneAndUpdate({ _id: id }, staffNew, { new: true })
+      .exec();
     return updateStaff;
   }
 
@@ -94,7 +90,10 @@ export class StaffRepository {
    * @param status Trạng thái mới của nhân viên.
    * @returns Nhân viên đã được cập nhật trạng thái, null nếu không tìm thấy.
    */
-  async updateStatusById(id: string, status: boolean): Promise<StaffDocument | null> {
+  async updateStatusById(
+    id: string,
+    status: boolean,
+  ): Promise<StaffDocument | null> {
     return await this.model
       .findOneAndUpdate({ _id: id }, { status }, { new: true })
       .exec();
@@ -120,11 +119,7 @@ export class StaffRepository {
       .sort({ name: sort }) // Sắp xếp theo 'name'
       .limit(limit)
       .lean<Staff[]>()
-<<<<<<< HEAD
-      .select('-password') // Loại bỏ trường 'password'
-=======
       .select('-password')
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
       .exec();
   }
 
@@ -136,4 +131,3 @@ export class StaffRepository {
     return await this.model.find().lean<Staff[]>().exec();
   }
 }
-

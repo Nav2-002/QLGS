@@ -9,16 +9,10 @@ import { Admin, AdminDocument } from 'src/admin/model/admin.schema';
 export class AdminRepository {
   constructor(@InjectModel(Admin.name) private readonly adminModel: Model<AdminDocument>) {}
 
-  /**
-   * Tìm kiếm Admin theo email.
-   */
   async findByEmail(email: string): Promise<AdminDocument | null> {
     return this.adminModel.findOne({ email }).exec();
   }
 
-  /**
-   * Tạo mới Admin.
-   */
   async create(admin: CreateAdminDto) {
     const newAdmin = await new this.adminModel({
       _id: new Types.ObjectId(),
@@ -28,32 +22,15 @@ export class AdminRepository {
     return newAdmin;
   }
 
-  /**
-   * Tìm Admin theo ID.
-   */
   async findOne(id: string) {
     return await this.adminModel.findOne({ _id: id }).lean<Admin>(true);
   }
-<<<<<<< HEAD
-
-  /**
-   * Tìm thông tin Admin đang đăng nhập (theo ID) và chọn các trường chỉ định.
-   */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async findMe(id: string, select: string) {
     return await this.adminModel
       .findById({ _id: id })
       .select(select)
       .lean<Admin>(true);
   }
-<<<<<<< HEAD
-
-  /**
-   * Cập nhật thông tin Admin theo ID.
-   */
-=======
->>>>>>> 83c6b79c6a6390ed22ae71b16bcdd980d9ffce1d
   async updateOne(id: string, adminOld: Admin, adminNew: UpdateAdminDto) {
     const updateAdmin = await this.adminModel.findOneAndUpdate(
       { _id: id },
@@ -66,16 +43,10 @@ export class AdminRepository {
     return updateAdmin;
   }
 
-  /**
-   * Xóa Admin theo ID.
-   */
   async deleteOne(id: string) {
     return await this.adminModel.findOneAndDelete({ _id: id });
   }
 
-  /**
-   * Tìm tất cả Admin có phân trang, sắp xếp và tìm kiếm theo từ khóa.
-   */
   async findAll(
     page: number,
     limit: number,
@@ -91,9 +62,6 @@ export class AdminRepository {
       .lean<Admin[]>(true);
   }
 
-  /**
-   * Lấy danh sách tất cả Admin (chỉ lấy các thông tin cơ bản).
-   */
   async findAllGetName() {
     return await this.adminModel.find().lean<Admin[]>(true);
   }
