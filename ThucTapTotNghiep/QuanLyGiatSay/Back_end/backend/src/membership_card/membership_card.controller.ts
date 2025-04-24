@@ -14,12 +14,12 @@ import {
 // import { Role } from 'src/auth/decorator/role.enum';
 // import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 // import { RoleAuthGuard } from 'src/auth/guards/role-jwt.guard';
-import { CreateMembershipCardDto } from './dto/create_membership_card.dto';
-import { UpdateMembershipCardDto } from './dto/update_membership_card.dto';
-import { MembershipCard } from 'src/membership_card/model/membership_card.schema';
-import { MembershipCardService } from './membership_card.service';
-import { ParamPaginationDto } from 'src/common/param-pagination.dto';
-import { buildPagination } from 'src/common/common';
+import { CreateMembershipCardDto } from './dto/create_membership_card.dto';    // DTO tạo mới thẻ thành viên
+import { UpdateMembershipCardDto } from './dto/update_membership_card.dto';    // DTO cập nhật thẻ thành viên
+import { MembershipCard } from 'src/membership_card/model/membership_card.schema';  // Model của thẻ thành viên
+import { MembershipCardService } from './membership_card.service';        // Service xử lý logic thẻ thành viên
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';      // DTO phân trang
+import { buildPagination } from 'src/common/common';                // Hàm tiện ích phân trang
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
@@ -27,6 +27,9 @@ import { buildPagination } from 'src/common/common';
 export class MembershipCardController {
   constructor(private readonly membershipCardService: MembershipCardService) {}
 
+  /**
+   * Lấy danh sách tất cả thẻ thành viên (chỉ lấy tên).
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all')
@@ -34,6 +37,9 @@ export class MembershipCardController {
     return this.membershipCardService.findAllGetName();
   }
 
+  /**
+   * Lấy danh sách thẻ thành viên có phân trang.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
@@ -43,6 +49,9 @@ export class MembershipCardController {
     return buildPagination<MembershipCard>(membershipCards, params, membershipCards);
   }
 
+  /**
+   * Tạo mới thẻ thành viên.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN)
   @Post('')
@@ -54,6 +63,9 @@ export class MembershipCardController {
     };
   }
 
+  /**
+   * Lấy thông tin thẻ thành viên theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Get(':id')
@@ -61,6 +73,9 @@ export class MembershipCardController {
     return this.membershipCardService.findById(id);
   }
 
+  /**
+   * Cập nhật thông tin thẻ thành viên theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Patch(':id')
@@ -72,6 +87,9 @@ export class MembershipCardController {
     };
   }
 
+  /**
+   * Xóa thẻ thành viên theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Delete(':id')
@@ -83,6 +101,9 @@ export class MembershipCardController {
     };
   }
 
+  /**
+   * Cập nhật trạng thái của thẻ thành viên theo ID.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Put(':id/status')
@@ -94,3 +115,4 @@ export class MembershipCardController {
     };
   }
 }
+
