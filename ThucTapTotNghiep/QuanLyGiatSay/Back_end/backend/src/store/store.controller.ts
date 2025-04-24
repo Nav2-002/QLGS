@@ -14,12 +14,12 @@ import {
 // import { Role } from 'src/auth/decorator/role.enum';
 // import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 // import { RoleAuthGuard } from 'src/auth/guards/role-jwt.guard';
-import { CreateStoreDto } from './dto/create_store.dto';
-import { UpdateStoreDto } from './dto/update_store.dto';
-import { Store } from 'src/store/model/store.schema';
-import { StoreService } from './store.service';
-import { ParamPaginationDto } from 'src/common/param-pagination.dto';
-import { buildPagination } from 'src/common/common';
+import { CreateStoreDto } from './dto/create_store.dto';      
+import { UpdateStoreDto } from './dto/update_store.dto';     
+import { Store } from 'src/store/model/store.schema';        
+import { StoreService } from './store.service';         
+import { ParamPaginationDto } from 'src/common/param-pagination.dto';  
+import { buildPagination } from 'src/common/common';            
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
@@ -27,6 +27,10 @@ import { buildPagination } from 'src/common/common';
 export class StoreController {
   constructor(private readonly storeService: StoreService) {}
 
+  /**
+   * Lấy danh sách tất cả các cửa hàng (chỉ lấy tên).
+   * @returns Danh sách tên của tất cả các cửa hàng.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get('all')
@@ -34,6 +38,11 @@ export class StoreController {
     return this.storeService.findAllGetName();
   }
 
+  /**
+   * Lấy danh sách các cửa hàng có phân trang.
+   * @param query Các tham số phân trang.
+   * @returns Danh sách các cửa hàng đã phân trang.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Get()
@@ -41,6 +50,11 @@ export class StoreController {
     return this.storeService.findAll(query);
   }
 
+  /**
+   * Tạo mới một cửa hàng.
+   * @param store Dữ liệu tạo mới cửa hàng.
+   * @returns Thông tin cửa hàng đã được tạo.
+   */
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN)
   @Post('')
@@ -52,6 +66,11 @@ export class StoreController {
     };
   }
 
+  /**
+   * Lấy thông tin một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần lấy.
+   * @returns Thông tin của cửa hàng.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Get(':id')
@@ -59,6 +78,12 @@ export class StoreController {
     return this.storeService.findById(id);
   }
 
+  /**
+   * Cập nhật thông tin của một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần cập nhật.
+   * @param store Dữ liệu cập nhật cửa hàng.
+   * @returns Thông tin cửa hàng sau khi cập nhật.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Patch(':id')
@@ -70,6 +95,11 @@ export class StoreController {
     };
   }
 
+  /**
+   * Xóa một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần xóa.
+   * @returns Thông báo xóa thành công và ID của cửa hàng đã xóa.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
   @Delete(':id')
@@ -81,6 +111,12 @@ export class StoreController {
     };
   }
 
+  /**
+   * Cập nhật trạng thái của một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần cập nhật trạng thái.
+   * @param status Trạng thái mới của cửa hàng (true hoặc false).
+   * @returns Thông tin cửa hàng sau khi cập nhật trạng thái.
+   */
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
   @Put(':id/status')
@@ -92,3 +128,4 @@ export class StoreController {
     };
   }
 }
+

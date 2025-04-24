@@ -13,6 +13,12 @@ import { ParamPaginationDto } from 'src/common/param-pagination.dto';
 export class StoreService {
   constructor(private readonly repository: StoreRepository) {}
 
+  /**
+   * Tạo mới một cửa hàng.
+   * @param createStoreDto Dữ liệu tạo mới cửa hàng.
+   * @returns Cửa hàng đã được tạo.
+   * @throws UnprocessableEntityException Nếu có lỗi xảy ra trong quá trình tạo.
+   */
   async createStore(createStoreDto: CreateStoreDto) {
     const { name, phoneNumber, address, status, id_manager } =
       createStoreDto;
@@ -20,7 +26,7 @@ export class StoreService {
     try {
       if (id_manager) {
         checkValisIsObject(id_manager, 'id_manager');
-        // You might want to validate if the staff exists here, similar to the previous example.
+        // Bạn có thể muốn xác thực xem nhân viên này có tồn tại không, tương tự như ví dụ trước.
       }
       return await this.repository.create({
         name,
@@ -34,6 +40,12 @@ export class StoreService {
     }
   }
 
+  /**
+   * Tìm một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần tìm.
+   * @returns Cửa hàng nếu tìm thấy.
+   * @throws NotFoundException Nếu không tìm thấy cửa hàng.
+   */
   async findById(id: string) {
     checkValisIsObject(id, 'store id');
     const store = await this.repository.findOne(id);
@@ -44,16 +56,23 @@ export class StoreService {
     return store;
   }
 
+  /**
+   * Cập nhật thông tin của một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần cập nhật.
+   * @param storeUpdate Dữ liệu cập nhật cửa hàng.
+   * @returns Cửa hàng đã được cập nhật.
+   * @throws UnprocessableEntityException Nếu có lỗi xảy ra trong quá trình cập nhật.
+   */
   async updateById(id: string, storeUpdate: UpdateStoreDto) {
     const { name, phoneNumber, address, status, id_manager } =
       storeUpdate;
 
-    const store = await this.findById(id);
+    const store = await this.findById(id); // Lấy thông tin cửa hàng hiện tại
 
     try {
       if (id_manager) {
         checkValisIsObject(id_manager, 'id_manager');
-        // You might want to validate if the staff exists here, similar to the previous example.
+        // Bạn có thể muốn xác thực xem nhân viên này có tồn tại không, tương tự như ví dụ trước.
       }
 
       return await this.repository.updateOne(id, store, {
@@ -68,14 +87,26 @@ export class StoreService {
     }
   }
 
+  /**
+   * Xóa một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần xóa.
+   * @returns Cửa hàng đã bị xóa.
+   * @throws NotFoundException Nếu không tìm thấy cửa hàng.
+   */
   async deleteById(id: string) {
-    const store = await this.findById(id);
-
+    const store = await this.findById(id); // Lấy thông tin cửa hàng để kiểm tra sự tồn tại
     await this.repository.deleteOne(store._id.toHexString());
 
     return store;
   }
 
+  /**
+   * Cập nhật trạng thái của một cửa hàng theo ID.
+   * @param id ID của cửa hàng cần cập nhật trạng thái.
+   * @param status Trạng thái mới của cửa hàng.
+   * @returns Cửa hàng đã được cập nhật trạng thái.
+   * @throws NotFoundException Nếu không tìm thấy cửa hàng.
+   */
   async updateStatusById(id: string, status: boolean) {
     checkValisIsObject(id, 'store id');
 
@@ -87,19 +118,29 @@ export class StoreService {
     return store;
   }
 
+  /**
+   * Lấy danh sách cửa hàng dựa trên các tham số phân trang.
+   * @param params Các tham số phân trang.
+   * @returns Danh sách cửa hàng đã phân trang.
+   */
   async findAll(params: ParamPaginationDto) {
     const { page, limit, sort, keyword } = params;
     const newSort = sort !== 'asc' ? 'desc' : 'asc';
-  
+
     const stores = await this.repository.findAll(page, limit, newSort, keyword);
-  
-    // Lấy tất cả stores để tính total
+
+    // Lấy tất cả các cửa hàng để tính tổng số lượng
     const allStores = await this.repository.findAll(1, 0, newSort, keyword);
-  
+
     return buildPagination(allStores, params, stores);
   }
 
+  /**
+   * Lấy danh sách tất cả các cửa hàng (chỉ lấy tên).
+   * @returns Danh sách tất cả các cửa hàng.
+   */
   async findAllGetName() {
     return await this.repository.findAllGetName();
   }
 }
+
