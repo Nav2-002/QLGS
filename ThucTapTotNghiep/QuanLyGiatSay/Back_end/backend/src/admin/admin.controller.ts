@@ -28,52 +28,53 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 // @UseGuards(JwtAuthGuard, RoleAuthGuard)
 // @Roles(Role.ADMIN, Role.USER)
-@Controller('admins')
+@Controller('admins') // Controller quản lý Admin
 export class AdminController {
-    constructor(private readonly adminService: AdminService) {}
-    
+  constructor(private readonly adminService: AdminService) {}
+
   @UseGuards(JwtAuthGuard)
-  @Get('me')
+  @Get('me') // Lấy thông tin Admin hiện tại
   getMe(@Request() req) {
     const { _id } = req.user;
     return this.adminService.getOne(_id);
   }
+
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
-  @Get('all')
+  @Get('all') // Lấy danh sách tên tất cả Admin
   getAllGetName() {
     return this.adminService.findAllGetName();
   }
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN, Role.USER)
-  @Get()
+  @Get() // Lấy danh sách Admin có phân trang
   async getAll(@Query() query: ParamPaginationDto) {
     return this.adminService.findAll(query);
   }
-  
+
 
   // @UseGuards(JwtAuthGuard, RoleAuthGuard)
   // @Roles(Role.ADMIN)
-  @Post('')
+  @Post('') // Tạo mới Admin
   async create(@Body() admin: CreateAdminDto) {
     const newAdmin = await this.adminService.createAdmin(admin);
     return {
       message: 'Tạo admin thành công.',
-        admin: newAdmin,
+      admin: newAdmin,
     };
   }
 
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
-  @Get(':id')
+  @Get(':id') // Lấy thông tin Admin theo ID
   getbyId(@Param('id') id: string) {
     return this.adminService.findById(id);
   }
 
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
-  @Patch(':id')
+  @Patch(':id') // Cập nhật thông tin Admin theo ID
   async updateOne(@Param('id') id: string, @Body() admin: UpdateAdminDto) {
     const updatedAdmin = await this.adminService.updateById(id, admin);
     return {
@@ -84,7 +85,7 @@ export class AdminController {
 
   // @UseGuards(JwtAuthGuard)
   // @Roles(Role.ADMIN)
-  @Delete(':id')
+  @Delete(':id') // Xóa Admin theo ID
   async deleteOne(@Param('id') id: string) {
     await this.adminService.deleteById(id);
     return {
@@ -92,5 +93,4 @@ export class AdminController {
       deletedId: id,
     };
   }
-
 }
